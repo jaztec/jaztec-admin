@@ -6,9 +6,6 @@ use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
-use KJSencha\Direct\DirectEvent;
-use Zend\Mvc\MvcEvent;
-use Zend\EventManager\Event;
 
 class Module implements
     AutoloaderProviderInterface,

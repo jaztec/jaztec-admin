@@ -4,7 +4,7 @@
  * Credits to Evan Coury for writing this standard bootstrap.
  */
 
-namespace JaztecAclTest;
+namespace JaztecAdminTest;
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
