@@ -1,0 +1,37 @@
+{
+    "name": "jaztec/jaztec-admin",
+    "description": "Admin module for components inside the Jaztec library",
+    "type": "library", 
+    "license": "MIT",
+    "keywords": [
+		"jaztec"
+    ],
+    "homepage": "http://www.jaztec.nl/",
+    "authors": [
+		{
+            "name": "Jasper van Herpt",
+            "email": "jasper@jaspervanherpt.com",
+            "homepage": "http://www.jaspervanherpt.com"
+		}
+	],
+    "require": {
+        "php": ">=5.3.3",
+        "zendframework/zendframework": "2.*",
+        "rwoverdijk/assetmanager": "1.*",
+        "rovak/kj-sencha": "0.*",
+        "doctrine/doctrine-orm-module": "0.*",
+        "doctrine/doctrine-module": "0.*",
+        "doctrine/migrations": "dev-master",
+        "doctrine/data-fixtures": "dev-master",
+        "zf-commons/zfc-base": "0.*",
+        "zf-commons/zfc-user": "0.*",
+        "zf-commons/zfc-user-doctrine-orm": "0.*",
+        "jaztec/jaztec-base": "dev-master",
+        "jaztec/jaztec-acl": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "JaztecAdmin": "src/"
+        }
+    }
+}
