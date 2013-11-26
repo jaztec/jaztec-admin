@@ -15,8 +15,7 @@ use RuntimeException;
 error_reporting(E_ALL | E_STRICT);
 chdir(__DIR__);
 
-class Bootstrap
-{
+class Bootstrap {
 
     /**
      * @var \Zend\ServiceManager\ServiceManager
@@ -27,7 +26,6 @@ class Bootstrap
      * @var array
      */
     protected static $config;
-
     protected static $bootstrap;
 
     /**
@@ -35,8 +33,7 @@ class Bootstrap
      *
      * @return void
      */
-    public static function init()
-    {
+    public static function init() {
         // Load a config file.
         if (is_readable(__DIR__ . '/TestConfig.php')) {
             $testConfig = include __DIR__ . '/TestConfig.php';
@@ -79,16 +76,14 @@ class Bootstrap
     /**
      * @return \Zend\ServiceManager\ServiceManager
      */
-    public static function getServiceManager()
-    {
+    public static function getServiceManager() {
         return static::$serviceManager;
     }
 
     /**
      * @return array
      */
-    public static function getConfig()
-    {
+    public static function getConfig() {
         return static::$config;
     }
 
@@ -96,8 +91,7 @@ class Bootstrap
      * @throws RuntimeException
      * @return void
      */
-    protected static function initAutoloader()
-    {
+    protected static function initAutoloader() {
         $vendorPath = static::findParentPath('vendor');
 
         if (is_readable($vendorPath . '/autoload.php')) {
@@ -115,7 +109,7 @@ class Bootstrap
         AutoloaderFactory::factory(array(
             'Zend\Loader\StandardAutoloader' => array(
                 'autoregister_zf' => true,
-                'namespaces' => array(
+                'namespaces'      => array(
                     __NAMESPACE__ => __DIR__ . '/' . __NAMESPACE__,
                 ),
             ),
@@ -126,12 +120,11 @@ class Bootstrap
      * @param  string $path
      * @return string
      */
-    protected static function findParentPath($path)
-    {
-        $dir = __DIR__;
+    protected static function findParentPath($path) {
+        $dir         = __DIR__;
         $previousDir = '.';
         while (!is_dir($dir . '/' . $path)) {
-            $dir = dirname($dir);
+            $dir         = dirname($dir);
             if ($previousDir === $dir)
                 return false;
             $previousDir = $dir;

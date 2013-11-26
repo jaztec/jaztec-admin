@@ -7,30 +7,21 @@
 
 Ext.define('Ext.ux.desktop.StartMenu', {
     extend: 'Ext.panel.Panel',
-
     requires: [
         'Ext.menu.Menu',
         'Ext.toolbar.Toolbar'
     ],
-
     ariaRole: 'menu',
-
     cls: 'x-menu ux-start-menu',
-
     defaultAlign: 'bl-tl',
-
     iconCls: 'user',
-
     floating: true,
-
     shadow: true,
-
     // We have to hardcode a width because the internal Menu cannot drive our width.
     // This is combined with changing the align property of the menu's layout from the
     // typical 'stretchmax' to 'stretch' which allows the the items to fill the menu
     // area.
     width: 300,
-
     initComponent: function() {
         var me = this, menu = me.menu;
 
@@ -70,12 +61,10 @@ Ext.define('Ext.ux.desktop.StartMenu', {
 
         delete me.toolItems;
     },
-
     addMenuItem: function() {
         var cmp = this.menu;
         cmp.add.apply(cmp, arguments);
     },
-
     addToolItem: function() {
         var cmp = this.toolbar;
         cmp.add.apply(cmp, arguments);

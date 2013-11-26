@@ -3,13 +3,10 @@
 namespace JaztecAdmin;
 
 return array(
-    'invokables' => array(
-
+    'invokables'   => array(
     ),
-    'factories' => array(
-
+    'factories'    => array(
     ),
     'initializers' => array(
-
     ),
 );

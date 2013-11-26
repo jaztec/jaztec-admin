@@ -13,28 +13,22 @@ Ext.define('Ext.ux.desktop.TaskBar', {
     // This must be a toolbar. we rely on acquired toolbar classes and inherited toolbar methods for our
     // child items to instantiate and render correctly.
     extend: 'Ext.toolbar.Toolbar',
-
     requires: [
         'Ext.button.Button',
         'Ext.resizer.Splitter',
         'Ext.menu.Menu',
-
         'Ext.ux.desktop.StartMenu'
     ],
-
     alias: 'widget.taskbar',
-
     cls: 'ux-taskbar',
-
     /**
      * @cfg {String} startBtnText
      * The text for the Start Button.
      */
     startBtnText: 'Start',
-
-    initComponent: function () {
+    initComponent: function() {
         var me = this;
-        
+
         me.startMenu = new Ext.ux.desktop.StartMenu(me.startConfig);
 
         me.quickStart = new Ext.toolbar.Toolbar(me.getQuickStart());
@@ -65,19 +59,17 @@ Ext.define('Ext.ux.desktop.TaskBar', {
 
         me.callParent();
     },
-
-    afterLayout: function () {
+    afterLayout: function() {
         var me = this;
         me.callParent();
         me.windowBar.el.on('contextmenu', me.onButtonContextMenu, me);
     },
-
     /**
      * This method returns the configuration object for the Quick Start toolbar. A derived
      * class can override this method, call the base version to build the config and
      * then modify the returned object before returning it.
      */
-    getQuickStart: function () {
+    getQuickStart: function() {
         var me = this, ret = {
             minWidth: 20,
             width: Ext.themeName === 'neptune' ? 70 : 60,
@@ -85,9 +77,9 @@ Ext.define('Ext.ux.desktop.TaskBar', {
             enableOverflow: true
         };
 
-        Ext.each(this.quickStart, function (item) {
+        Ext.each(this.quickStart, function(item) {
             ret.items.push({
-                tooltip: { text: item.name, align: 'bl-tl' },
+                tooltip: {text: item.name, align: 'bl-tl'},
                 //tooltip: item.name,
                 overflowText: item.name,
                 iconCls: item.iconCls,
@@ -99,45 +91,40 @@ Ext.define('Ext.ux.desktop.TaskBar', {
 
         return ret;
     },
-
     /**
      * This method returns the configuration object for the Tray toolbar. A derived
      * class can override this method, call the base version to build the config and
      * then modify the returned object before returning it.
      */
-    getTrayConfig: function () {
+    getTrayConfig: function() {
         var ret = {
             items: this.trayItems
         };
         delete this.trayItems;
         return ret;
     },
-
-    getWindowBarConfig: function () {
+    getWindowBarConfig: function() {
         return {
             flex: 1,
             cls: 'ux-desktop-windowbar',
-            items: [ '&#160;' ],
-            layout: { overflowHandler: 'Scroller' }
+            items: ['&#160;'],
+            layout: {overflowHandler: 'Scroller'}
         };
     },
-
-    getWindowBtnFromEl: function (el) {
+    getWindowBtnFromEl: function(el) {
         var c = this.windowBar.getChildByElement(el);
         return c || null;
     },
-
-    onQuickStartClick: function (btn) {
+    onQuickStartClick: function(btn) {
         var module = this.app.getModule(btn.module),
-            window;
+                window;
 
         if (module) {
             window = module.createWindow();
             window.show();
         }
     },
-    
-    onButtonContextMenu: function (e) {
+    onButtonContextMenu: function(e) {
         var me = this, t = e.getTarget(), btn = me.getWindowBtnFromEl(t);
         if (btn) {
             e.stopEvent();
@@ -145,8 +132,7 @@ Ext.define('Ext.ux.desktop.TaskBar', {
             me.windowMenu.showBy(t);
         }
     },
-
-    onWindowBtnClick: function (btn) {
+    onWindowBtnClick: function(btn) {
         var win = btn.win;
 
         if (win.minimized || win.hidden) {
@@ -164,7 +150,6 @@ Ext.define('Ext.ux.desktop.TaskBar', {
             win.toFront();
         }
     },
-
     addTaskButton: function(win) {
         var config = {
             iconCls: win.iconCls,
@@ -184,10 +169,9 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         cmp.toggle(true);
         return cmp;
     },
-
-    removeTaskButton: function (btn) {
+    removeTaskButton: function(btn) {
         var found, me = this;
-        me.windowBar.items.each(function (item) {
+        me.windowBar.items.each(function(item) {
             if (item === btn) {
                 found = item;
             }
@@ -198,12 +182,11 @@ Ext.define('Ext.ux.desktop.TaskBar', {
         }
         return found;
     },
-
     setActiveButton: function(btn) {
         if (btn) {
             btn.toggle(true);
         } else {
-            this.windowBar.items.each(function (item) {
+            this.windowBar.items.each(function(item) {
                 if (item.isButton) {
                     item.toggle(false);
                 }
@@ -219,18 +202,12 @@ Ext.define('Ext.ux.desktop.TaskBar', {
  */
 Ext.define('Ext.ux.desktop.TrayClock', {
     extend: 'Ext.toolbar.TextItem',
-
     alias: 'widget.trayclock',
-
     cls: 'ux-desktop-trayclock',
-
     html: '&#160;',
-
     timeFormat: 'g:i A',
-
     tpl: '{time}',
-
-    initComponent: function () {
+    initComponent: function() {
         var me = this;
 
         me.callParent();
@@ -239,14 +216,12 @@ Ext.define('Ext.ux.desktop.TrayClock', {
             me.tpl = new Ext.XTemplate(me.tpl);
         }
     },
-
-    afterRender: function () {
+    afterRender: function() {
         var me = this;
         Ext.Function.defer(me.updateTime, 100, me);
         me.callParent();
     },
-
-    onDestroy: function () {
+    onDestroy: function() {
         var me = this;
 
         if (me.timer) {
@@ -256,10 +231,9 @@ Ext.define('Ext.ux.desktop.TrayClock', {
 
         me.callParent();
     },
-
-    updateTime: function () {
+    updateTime: function() {
         var me = this, time = Ext.Date.format(new Date(), me.timeFormat),
-            text = me.tpl.apply({ time: time });
+                text = me.tpl.apply({time: time});
         if (me.lastText != text) {
             me.setText(text);
             me.lastText = text;

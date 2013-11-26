@@ -5,16 +5,19 @@ namespace JaztecAdmin\Controller;
 use JaztecAcl\Controller\AuthorizedController;
 use Zend\View\Model\ViewModel;
 
-class IndexController extends AuthorizedController
-{
+class IndexController extends AuthorizedController {
+
     /**
      * Fires the ExtJs application.
      * 
      * @return \Zend\View\ViewModel
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $this->layout('jaztec-admin/layout');
-        return new ViewModel();
+        
+        $sm = $this->getServiceLocator();
+        $bootstrap = $sm->get('kjsencha.bootstrap');
+        return $bootstrap->getViewModel();
     }
+
 }
