@@ -1,5 +1,5 @@
 <?php echo $this->doctype(); ?>
-
+ 
 <html lang="nl">
     <head>
         <meta charset="utf-8">
@@ -7,7 +7,28 @@
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
         <?php echo $this->headLink(); ?>
         <?php echo $this->headScript(); ?>
-        
+        <style type="text/css">
+            body {
+               padding: 0;
+               margin:0;
+               min-width: 900px;
+               background-color: #4589D9;
+               background-repeat: repeat;
+               background-attachment: scroll;
+               background-position: top left;
+            }
+            /*
+             * Styles voor de messages.
+             */
+            #login-container {
+                position:absolute;
+                left:50%;
+                top:10px;
+                width:400px;
+                margin-left:-200px;
+                z-index:20000;
+            }
+        </style>
         <?php
             // KJ Sencha benodigdheden
             $this->extJs()->loadLibrary();
@@ -21,6 +42,6 @@
     </head>
     <body>
         <?php echo $this->content; ?>
-        <?php echo $this->inlineScript()->appendFile($this->basePath() . '/js/JaztecAdmin/app.js'); ?>
+        <?php echo $this->inlineScript()->appendFile($this->basePath() . '/js/jaztecadmin/app.js'); ?>
     </body>
 </html>

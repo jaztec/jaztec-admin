@@ -7,6 +7,9 @@ use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
 
+use JaztecAdmin\Frontend\Component\Loginform;
+use JaztecAdmin\Frontend\ApplicationView;
+
 class Module implements
 AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface {
 
@@ -41,4 +44,18 @@ AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface {
         return include __DIR__ . '/../../config/service.config.php';
     }
 
+    public function getComponentConfig() {
+        return array(
+            'factories' => array(
+                'JaztecAdminComponent.Gateway' => function($sm) {
+                    $authService = $sm->get('zfcuser_auth_service');
+                    if ($authService->hasIdentity()) {
+                        return new ApplicationView(array());
+                    } else {
+                        return new Loginform(array());
+                    }
+                },
+            )
+        );
+    }
 }

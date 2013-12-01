@@ -16,7 +16,7 @@ return array(
         ),
         'direct'       => array(
             'modules' => array(
-                'Startup' => array(
+                'JaztecAdmin' => array(
                     'namespace' => 'JaztecAdmin\Direct',
                     'directory' => __DIR__ . '/../src/JaztecAdmin/Direct',
                 ),
@@ -32,12 +32,12 @@ return array(
                 // Ext.Ux classes toevoegen aan de autoloader.
                 'paths'     => array(
                     'Ext.ux'      => '/js/classes/Ext.ux',
-                    'JaztecAdmin' => '/js/JaztecAdmin',
+                    'JaztecAdmin' => '/js/jaztecadmin',
                 ),
                 'variables' => array(
                     'App' => array(
-                        'name'      => 'JaztecAdmin',
-                        'appFolder' => '/js/JaztecAdmin'
+                        'name'      => 'JaztecAdminApp',
+                        'appFolder' => '/js/jaztecadmin'
                     )
                 )
             ),
@@ -62,10 +62,27 @@ return array(
      * JaztecAcl config.
      */
     'jaztec_acl'      => array(
-        'name' => array(
+        'name'                => array(
             __NAMESPACE__ => 'jaztec/core-admin',
-        )
+        ),
+        // Redirect the AuthorizedController on Acl failure.
+        'redirect_controller' => false,
     ),
+    /**
+     * JaztecAdmin config
+     */
+    'jaztec_admin'    => array(
+        'modules' => array(
+            'controllers' => array(
+                'paths' => array(
+                    'JaztecAdmin.controller' => __DIR__ . '/../public/js/jaztecadmin/controller',
+                ),
+            ),
+        ),
+    ),
+    /**
+     * Futher confuguration.
+     */
     'controllers'     => array(
         'invokables' => array(
             'jaztecadmin/index' => 'JaztecAdmin\Controller\IndexController',
@@ -73,14 +90,14 @@ return array(
     ),
     'router'          => array(
         'routes' => array(
-            'jaztecadmin' => array(
+            'jaztecadmin'           => array(
                 'type'          => 'hostname',
                 'options'       => array(
                     'route' => 'core-admin.:host.nl',
                 ),
                 'may_terminate' => true,
                 'child_routes'  => array(
-                    'jaztecadmin/admin/home' => array(
+                    'jaztecadmin_home' => array(
                         'type'    => 'literal',
                         'options' => array(
                             'route'       => '/',
@@ -93,6 +110,20 @@ return array(
                                 'action'     => 'index',
                             ),
                         ),
+                    ),
+                ),
+            ),
+            'jaztecadmin_protected' => array(
+                'type'    => 'literal',
+                'options' => array(
+                    'route'       => '/s',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id'     => '[0-9]+',
+                    ),
+                    'defaults'    => array(
+                        'controller' => 'jaztecadmin/index',
+                        'action'     => 'validate',
                     ),
                 ),
             ),
