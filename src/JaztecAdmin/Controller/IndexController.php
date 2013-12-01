@@ -5,14 +5,16 @@ namespace JaztecAdmin\Controller;
 use JaztecAcl\Controller\AuthorizedController;
 use Zend\View\Model\JsonModel;
 
-class IndexController extends AuthorizedController {
+class IndexController extends AuthorizedController
+{
 
     /**
      * Fires the ExtJs application.
      * 
      * @return \Zend\View\ViewModel
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->layout('jaztec-admin/layout');
 
         $sm        = $this->getServiceLocator();
@@ -25,11 +27,13 @@ class IndexController extends AuthorizedController {
      * 
      * @return \Zend\View\Model\JsonModel
      */
-    public function validateAction() {
+    public function validateAction()
+    {
         return new JsonModel(
-                array(
-            'success' => true,
-        ));
+            array(
+                'success' => true,
+            )
+        );
     }
 
 }
