@@ -13,42 +13,17 @@ class LoginForm extends Component {
     protected $attributes = array();
 
     function __construct() {
-        $jsFuncBody = "
-            if (form.getForm().isValid()) {
-                form.body.mask('Inloggen');
-            } else {
-                return false;
-            }
-            form.getForm().submit({
-                success: function(obj, response)
-                {
-                    form.body.unmask();
-                    loginWindow.close();
-                    // Reload the application's viewport.
-                    JaztecAdminApp.viewport.removeAll();
-                    JaztecAdminApp.viewport.getLoader().load();
-                    JaztecAdminApp.getApplication().loadControllers();
-                },
-                failure: function(obj, rsp)
-                {
-                    form.getForm().markInvalid({
-                        'username-field': Ext.decode(rsp.response.responseText)['messages']
-                    });
-                    form.body.unmask();
-                }
-            });
-        ";
         $jsFuncKeypress   = "function(text, e) {
             if (e.button === 12) {
                 var form = text.up('form'),
                     loginWindow = form.up('#login-container');
-                " . $jsFuncBody  . "
+                loginWindow.submit(form);
             }
         }";
         $jsFuncButton     = "function(btn) {
             var loginWindow = btn.up('#login-container'),
                 form = loginWindow.down('form');
-                " . $jsFuncBody  . "
+                loginWindow.submit(form);
         }";
         $this->attributes = array(
             'extend' => 'Ext.container.Container',
@@ -119,6 +94,35 @@ class LoginForm extends Component {
                     )
                 ),
             ),
+            'submit' => new Expr("
+                function(form) 
+                {
+                    var me = this;
+                    if (form.getForm().isValid()) {
+                        form.body.mask('Inloggen');
+                    } else {
+                        return false;
+                    }
+                    form.getForm().submit({
+                        success: function(obj, response)
+                        {
+                            form.body.unmask();
+                            me.close();
+                            // Reload the application's viewport.
+                            JaztecAdminApp.viewport.removeAll();
+                            JaztecAdminApp.viewport.getLoader().load();
+                            JaztecAdminApp.getApplication().loadControllers();
+                        },
+                        failure: function(obj, rsp)
+                        {
+                            form.getForm().markInvalid({
+                                'username-field': Ext.decode(rsp.response.responseText)['messages']
+                            });
+                            form.body.unmask();
+                        }
+                    });
+                }
+            "),
         );
     }
 
