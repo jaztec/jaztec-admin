@@ -10,24 +10,48 @@ use KJSencha\Frontend\Expr;
  *
  * @author Jasper van Herpt
  */
-class ApplicationView extends Component {
+class ApplicationView extends Component
+{
 
     /**
      * @var array
      */
     protected $attributes = array();
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->attributes = array(
-            'extend'        => 'Ext.panel.Panel',
-            'layout'        => 'card',
-            'alias'         => 'widget.appMain',
-            'items'         => array(
+            'extend'      => 'Ext.panel.Panel',
+            'layout'      => 'fit',
+            'bodyCls'     => 'desktop',
+            'id'          => 'app-main-panel',
+            'alias'       => 'widget.appMain',
+            'dockedItems' => array(
                 array(
-                    'xtype'  => 'panel',
-                    'title'  => 'We zitten erin',
-                    'region' => 'center',
-                    'items'  => array(),
+                    'xtype'    => 'toolbar',
+                    'dock'     => 'bottom',
+                    'defaults' => array(
+                        'scale'        => 'large',
+                        'enableToggle' => true,
+                        'rowspan'      => 3,
+                        'width'        => 80,
+                        'iconAlign'    => 'left'
+                    ),
+                    'items'    => array(
+                        array(
+                            'xtype'   => 'button',
+                            'text'    => '<strong>Launch</strong>',
+                            'iconCls' => 'icon-engage',
+                            'width'   => 125,
+                        ),
+                        new Expr("'->'"),
+                        new Expr("'|'"),
+                        array(
+                            'xtype' => 'tbtext',
+                            'id'    => 'taskbar-text',
+                            'text'  => 'Initialized'
+                        ),
+                    ),
                 ),
             ),
         );

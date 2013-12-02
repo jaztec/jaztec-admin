@@ -5,10 +5,10 @@
         <meta charset="utf-8">
         <?php echo $this->headTitle($this->translate('Jaztec Administratie'))->setSeparator(' - ')->setAutoEscape(false) ?>
         <?php echo $this->headMeta()->appendName('viewport', 'width=device-width, initial-scale=1.0') ?>
-        <?php echo $this->headLink(); ?>
+        <?php echo $this->headLink()->offsetSetStylesheet(1, $this->basePath() . '/css/icons.css'); ?>
         <?php echo $this->headScript(); ?>
         <style type="text/css">
-            body {
+            body #app-main-panel-body {
                padding: 0;
                margin:0;
                min-width: 900px;
@@ -20,14 +20,14 @@
             /*
              * Styles voor de messages.
              */
-            #login-container {
+            /*#login-container {
                 position:absolute;
                 left:50%;
                 top:10px;
                 width:400px;
                 margin-left:-200px;
                 z-index:20000;
-            }
+            }*/
         </style>
         <?php
             // KJ Sencha benodigdheden
