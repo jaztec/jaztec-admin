@@ -6,28 +6,33 @@ use Zend\ModuleManager\ModuleManager;
 use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
 use Zend\ModuleManager\Feature\ConfigProviderInterface;
 use Zend\ModuleManager\Feature\ServiceProviderInterface;
-
 use JaztecAdmin\Frontend\Component\Loginform;
 use JaztecAdmin\Frontend\ApplicationView;
 
 class Module implements
-AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface {
+AutoloaderProviderInterface,
+    ConfigProviderInterface,
+    ServiceProviderInterface
+{
 
-    public function init(ModuleManager $moduleManager) {
+    public function init(ModuleManager $moduleManager)
+    {
         
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getConfig() {
+    public function getConfig()
+    {
         return include __DIR__ . '/../../config/module.config.php';
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getAutoloaderConfig() {
+    public function getAutoloaderConfig()
+    {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
@@ -40,11 +45,13 @@ AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface {
     /**
      * {@inheritDoc}
      */
-    public function getServiceConfig() {
+    public function getServiceConfig()
+    {
         return include __DIR__ . '/../../config/service.config.php';
     }
 
-    public function getComponentConfig() {
+    public function getComponentConfig()
+    {
         return array(
             'factories' => array(
                 'JaztecAdminComponent.Gateway' => function($sm) {
@@ -58,4 +65,5 @@ AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface {
             )
         );
     }
+
 }

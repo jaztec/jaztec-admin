@@ -1,5 +1,5 @@
 <?php echo $this->doctype(); ?>
- 
+
 <html lang="nl">
     <head>
         <meta charset="utf-8">
@@ -9,35 +9,35 @@
         <?php echo $this->headScript(); ?>
         <style type="text/css">
             body #app-main-panel-body {
-               padding: 0;
-               margin:0;
-               min-width: 900px;
-               background-color: #4589D9;
-               background-repeat: repeat;
-               background-attachment: scroll;
-               background-position: top left;
+                padding: 0;
+                margin:0;
+                min-width: 900px;
+                background-color: #4589D9;
+                background-repeat: repeat;
+                background-attachment: scroll;
+                background-position: top left;
             }
             /*
              * Styles voor de messages.
              */
-            /*#login-container {
+            #login-container {
                 position:absolute;
                 left:50%;
                 top:10px;
                 width:400px;
                 margin-left:-200px;
                 z-index:20000;
-            }*/
+            }
         </style>
         <?php
-            // KJ Sencha benodigdheden
-            $this->extJs()->loadLibrary();
 
-            $this->kjSenchaVariables();
-            $this->kjSenchaLoaderConfig();
-            $this->kjSenchaDirectApi();
-            // Einde KJ Sencha benodigdheden.
+        // KJ Sencha benodigdheden
+        $this->extJs()->loadLibrary();
 
+        $this->kjSenchaVariables();
+        $this->kjSenchaLoaderConfig();
+        $this->kjSenchaDirectApi();
+        // Einde KJ Sencha benodigdheden.
         ?>
     </head>
     <body>

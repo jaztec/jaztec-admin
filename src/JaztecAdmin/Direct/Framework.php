@@ -9,9 +9,11 @@ use JaztecAcl\Direct\AuthorizedDirectObject;
  *
  * @author Jasper van Herpt
  */
-class Framework extends AuthorizedDirectObject {
+class Framework extends AuthorizedDirectObject
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->aclDenominator = 'jaztecadmin/direct/framework';
     }
@@ -26,7 +28,8 @@ class Framework extends AuthorizedDirectObject {
      * @param array $values Client side params
      * @return array An array of the allowed controllers to be active.
      */
-    public function getControllers(array $values) {
+    public function getControllers(array $values)
+    {
         $config     = $this->getServiceLocator()->get('Config');
         $paths      = $config['jaztec_admin']['modules']['controllers']['paths'];
         $result     = array();
@@ -43,7 +46,7 @@ class Framework extends AuthorizedDirectObject {
                     // Validate the file.
                     $entryPath = $readDir . DIRECTORY_SEPARATOR . $entry;
                     if ($entry !== '.' && $entry !== '..' && is_file($entryPath)) {
-                        $entry    = pathinfo($entry);
+                        $entry      = pathinfo($entry);
                         $controller = $namespace . '.' . $entry['filename'];
                         // Validate against the ACL.
                         if ($this->checkAcl('extjs-controller-' . $controller)) {

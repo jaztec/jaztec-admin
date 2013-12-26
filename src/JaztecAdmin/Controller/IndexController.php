@@ -31,7 +31,7 @@ class IndexController extends AuthorizedController
     {
         return new JsonModel(
             array(
-                'success' => true,
+            'success' => true,
             )
         );
     }

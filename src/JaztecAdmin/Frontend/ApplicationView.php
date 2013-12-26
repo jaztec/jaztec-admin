@@ -43,6 +43,13 @@ class ApplicationView extends Component
                             'text'    => '<strong>Launch</strong>',
                             'iconCls' => 'icon-engage',
                             'width'   => 125,
+                            'handler' => new Expr("
+                                // This function is only designed call the launcher menu.
+                                function(button) 
+                                {
+                                    JaztecAdminApp.getApplication().showLaunchMenu(button)
+                                }
+                            "),
                         ),
                         new Expr("'->'"),
                         new Expr("'|'"),

@@ -8,11 +8,13 @@ use KJSencha\Frontend\Expr;
 /**
  * A loginform to be rendered with ExtJS
  */
-class LoginForm extends Component {
+class LoginForm extends Component
+{
 
     protected $attributes = array();
 
-    function __construct() {
+    function __construct()
+    {
         $jsFuncKeypress   = "function(text, e) {
             if (e.button === 12) {
                 var form = text.up('form'),
@@ -28,15 +30,22 @@ class LoginForm extends Component {
         $this->attributes = array(
             'extend' => 'Ext.container.Container',
             'width'  => 450,
+            'height' => 250,
             'y'      => 200,
             'id'     => 'login-container',
-            'float'  => true,
+            'border' => false,
+            'layout' => array(
+                'align' => 'center',
+                'type'  => 'vbox',
+            ),
             'items'  => array(
                 array(
                     'xtype'  => 'panel',
                     'frame'  => true,
                     'border' => false,
-                    'height' => 175,
+                    'height' => 279,
+                    'width'  => 279,
+                    'html'   => '<img src="/img/logo.png" title="Log in" />',
                 ),
                 array(
                     'xtype'         => 'form',
@@ -52,7 +61,7 @@ class LoginForm extends Component {
                     'defaults'      => array(
                         'anchor'          => '100%',
                         'enableKeyEvents' => true,
-                        'listeners' => array(
+                        'listeners'       => array(
                             'keypress' => new Expr($jsFuncKeypress),
                         ),
                     ),
@@ -127,4 +136,3 @@ class LoginForm extends Component {
     }
 
 }
-

@@ -4,7 +4,7 @@ Ext.define('JaztecAdmin.view.Viewport', {
     loader: JaztecAdminApp.data.createCmpLoader('JaztecAdminComponent.Gateway'),
     initComponent: function() {
         var me = this;
-        
+
         me.callParent(arguments);
     }
 });
