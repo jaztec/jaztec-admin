@@ -1,4 +1,4 @@
-Ext.define('JaztecAdmin.view.utils.Launchmenu', {
+Ext.define('JaztecUtils.desktop.Launchmenu', {
     extend: 'Ext.panel.Panel',
     
     alias: 'widget.launchmenu',
@@ -50,12 +50,29 @@ Ext.define('JaztecAdmin.view.utils.Launchmenu', {
         delete me.toolItems;        
     },
     
+    /**
+     * Inserts a menu button at a specified index.
+     * @param {integer} index
+     * @param {Ext.Component} item
+     */
+    insertMenuItem: function(index, item)
+    {
+        var cmp = this.menu;
+        cmp.insert(index, item);
+    },
+    
+    /**
+     * Adds a button to the menu.
+     */
     addMenuItem: function()
     {
         var cmp = this.menu;
         cmp.add.apply(cmp, arguments);
     },
         
+    /**
+     * Adds a button to the toolbar.
+     */
     addToolItem: function()
     {
         var cmp = this.toolbar;

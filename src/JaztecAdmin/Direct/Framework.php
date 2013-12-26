@@ -37,27 +37,17 @@ class Framework extends AuthorizedDirectObject
 
         // Loop through the directory's.
         foreach ($paths as $namespace => $path) {
-            $readDir = $path . $controllerPath;
-            // Opening the directory
-            $handle  = opendir($readDir);
-            if ($handle) {
-                // If exist then read the files for controller names.
-                while (false !== ($entry = readdir($handle))) {
-                    // Validate the file.
-                    $entryPath = $readDir . DIRECTORY_SEPARATOR . $entry;
-                    if ($entry !== '.' && $entry !== '..' && is_file($entryPath)) {
-                        $entry      = pathinfo($entry);
-                        $controller = $namespace . '.' . $entry['filename'];
-                        // Validate against the ACL.
-                        if ($this->checkAcl('extjs-controller-' . $controller)) {
-                            // Return the ExtJS controller string prefixed with the namespace.
-                            $result[] = $controller;
-                        }
-                    }
+            // Read the directory
+            foreach (glob("$path/*.js") as $entry) {
+                $entry = pathinfo($entry);
+                $controller = $namespace . '.' . $entry['filename'];
+                // Validate against the ACL.
+                if ($this->checkAcl('extjs-controller-' . $controller)) {
+                    // Return the ExtJS controller string prefixed with the namespace.
+                    $result[] = $controller;
                 }
             }
         }
-
         return $result;
     }
 
