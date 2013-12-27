@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites>
-  <testsuite name="JaztecAdmin tests" tests="1" assertions="1" failures="0" errors="0" time="0.210923">
-    <testsuite name="JaztecAclTest\Controller\IndexControllerTest" file="/home/jasper/Projects/Jaztec/vendor/JaztecAdmin/tests/JaztecAdminTest/Controller/IndexControllerTest.php" namespace="JaztecAclTest\Controller" fullPackage="JaztecAclTest.Controller" tests="1" assertions="1" failures="0" errors="0" time="0.210923">
-      <testcase name="testIndexResponse" class="JaztecAclTest\Controller\IndexControllerTest" file="/home/jasper/Projects/Jaztec/vendor/JaztecAdmin/tests/JaztecAdminTest/Controller/IndexControllerTest.php" line="62" assertions="1" time="0.210923"/>
-    </testsuite>
-  </testsuite>
-</testsuites>
