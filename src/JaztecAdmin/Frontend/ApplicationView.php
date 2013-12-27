@@ -47,7 +47,7 @@ class ApplicationView extends Component
                                 // This function is only designed call the launcher menu.
                                 function(button) 
                                 {
-                                    JaztecAdminApp.getApplication().showLaunchMenu(button)
+                                    JaztecAdminApp.getApplication().showLaunchMenu(button, JaztecAdminApp)
                                 }
                             "),
                         ),

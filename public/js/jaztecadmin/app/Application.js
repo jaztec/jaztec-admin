@@ -10,19 +10,19 @@ Ext.define('JaztecAdmin.app.Application', {
     launch: function() {
         var me = this;
         // Setup the KJSencha engine.
-        JaztecAdminApp.data = Ext.create('KJSencha.data.Factory');
+        me.data = Ext.create('KJSencha.data.Factory');
 
         // Placeholder for the loaded modules.
-        JaztecAdminApp.modules = [];
+        me.modules = [];
 
         // Create the viewport which will house the application.
-        JaztecAdminApp.viewport = Ext.create('JaztecAdmin.view.Viewport');
+        me.viewport = Ext.create('JaztecAdmin.view.Viewport');
 
         // Create room for the launcher menu.
-        JaztecAdminApp.viewport.launchMenu = me.createLaunchMenu();
+        me.viewport.launchMenu = me.createLaunchMenu();
         
         // Link the controller finder to the viewport loader.
-        JaztecAdminApp.viewport.loader.on({
+        me.viewport.loader.on({
             load: function(a) {
                 me.loadControllers();
             }

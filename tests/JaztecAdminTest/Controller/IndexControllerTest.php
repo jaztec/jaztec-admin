@@ -6,8 +6,8 @@ use JaztecAdminTest\Bootstrap;
 use JaztecAdmin\Controller\IndexController;
 use PHPUnit_Framework_TestCase;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
-use Zend\Http\Response;
-use Zend\Http\Request;
+use Zend\Http\PhpEnvironment\Request;
+//use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 
@@ -41,6 +41,7 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
 
     protected function setUp()
     {
+        \Zend\Console\Console::overrideIsConsole(false);
         // Gather variables
         $serviceManager   = Bootstrap::getServiceManager();
         $this->controller = new IndexController();

@@ -6,7 +6,8 @@ Ext.define('JaztecUtils.mvc.Application', {
         'JaztecUtils.mvc.module.Settings'
     ],
     
-    
+    data: {},
+    viewport: {},
     modules: [],
 
     /**
@@ -39,11 +40,12 @@ Ext.define('JaztecUtils.mvc.Application', {
      * Shows the launcher menu in the bottom left corner of the screen.
      * If the launcher panel doesn't exist it will be loaded.
      * @param {Ext.button.Button} button
+     * @param {JaztecUtils.mvc.Application} app
      */
-    showLaunchMenu: function(button)
+    showLaunchMenu: function(button, app)
     {
         // Toggle the visibility of the menu. If it is currently showing hide it.
-        JaztecAdminApp.viewport.launchMenu.setVisible(true);
+        app.viewport.launchMenu.setVisible(true);
         button.toggle(false);
     },
     /**
