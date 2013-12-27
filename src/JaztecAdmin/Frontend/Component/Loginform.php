@@ -31,7 +31,7 @@ class LoginForm extends Component
             'extend' => 'Ext.container.Container',
             'width'  => 450,
             'height' => 250,
-            'y'      => 200,
+            'y'      => 160,
             'id'     => 'login-container',
             'border' => false,
             'layout' => array(
@@ -41,7 +41,7 @@ class LoginForm extends Component
             'items'  => array(
                 array(
                     'xtype'  => 'panel',
-                    'frame'  => true,
+                    'frame'  => false,
                     'border' => false,
                     'height' => 279,
                     'width'  => 279,
@@ -97,7 +97,8 @@ class LoginForm extends Component
                         array(
                             'xtype'   => 'button',
                             'text'    => 'Inloggen',
-                            'scale'   => 'medium',
+                            'iconCls' => 'icon-engage',
+                            'scale'   => 'large',
                             'handler' => new Expr($jsFuncButton),
                         ),
                     )
