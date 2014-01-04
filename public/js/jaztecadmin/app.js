@@ -1,2 +1,4 @@
 Ext.require('JaztecAdmin.app.Application');
-JaztecAdminApp = Ext.create('JaztecAdmin.app.Application');
+if (JaztecAdminApp === undefined) {
+    var JaztecAdminApp = Ext.create('JaztecAdmin.app.Application');
+}

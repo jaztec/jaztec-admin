@@ -6,12 +6,10 @@ Ext.define('JaztecAdmin.controller.Main', {
     /**
      * This function should implement code to register actions related
      * to this controller into the global system.
-     * @param {JaztecUtils.mvc.Application} app
+     * @param {JaztecUtils.app.Application} app
      */
     registerSystem: function(app)
     {
         var me = this;
-        var desktop = new Ext.ux.desktop.Desktop(app.getDesktopConfig());
-        app.setDesktop(desktop);
     }
 });

@@ -1,103 +1,57 @@
 Ext.define('JaztecUtils.app.Application', {
     extend: 'Ext.app.Application',
     
-    mixins: {
-        app: 'Ext.ux.desktop.App'
-    },
-    
     requires: [
-        'JaztecAdmin.view.Viewport',
-        'JaztecUtils.desktop.Launchmenu',
-        'JaztecUtils.mvc.module.Settings'
+        'JaztecUtils.view.Viewport',
+        'JaztecUtils.view.main.Panel'
     ],
     
-    desktopCfg: null,
     data: {},
     viewport: {},
 
+    /**
+     * Initiates the main program.
+     */
     init: function()
     {
         var me = this;
         
+        // Quicktips when needed.
         if (me.useQuickTips) {
             Ext.QuickTips.init();
         }
 
-        me.modules = me.getModules();
-        if (me.modules) {
-            me.initModules(me.modules);
-        }
-        if (!me.modules) {
-            me.modules = [];
-        }
-
-//        me.desktopCfg = me.getDesktopConfig();
-//        me.desktop = new Ext.ux.desktop.Desktop(desktopCfg);
-//
+        // Setting placeholder for the modules.
+        me.modules = [];
         
         // Setup the KJSencha engine.
         me.data = Ext.create('KJSencha.data.Factory');
         
         // Create the viewport which will house the application.
-        me.viewport = Ext.create('JaztecAdmin.view.Viewport');
+        me.viewport = Ext.create('JaztecUtils.view.Viewport');
         var loader = me.data.createCmpLoader('JaztecAdminComponent.Gateway');
+        // Load
         me.viewport.setLoader(loader);
         me.viewport.load();
 
-        // Setup the 
+        // Setup the controller load hook.
         me.viewport.loader.on({
             load: function(a) {
                 me.loadControllers();
             }
         });
         
+        // Load controllers for the first time.
+        me.loadControllers();
+        
+        // Unload handler.
         Ext.EventManager.on(window, 'beforeunload', me.onUnload, me);
     },
     
-    setDesktop: function(desktop)
-    {
-        var me = this;
-        if (me.isReady === true) {
-            return false;
-        }
-        me.desktop = desktop;
-        me.isReady = true;
-        me.fireEvent('ready', me);
-    },
-    
-    getDesktopConfig: function () {
-        var me = this, ret = {};
-
-        return Ext.apply(ret, {
-            //cls: 'ux-desktop-black',
-
-            contextMenuItems: [
-                { text: 'Change Settings', handler: me.onSettings, scope: me }
-            ],
-
-//            shortcuts: Ext.create('Ext.data.Store', {
-//                model: 'Ext.ux.desktop.ShortcutModel',
-//                data: [
-//                    { name: 'Grid Window', iconCls: 'grid-shortcut', module: 'grid-win' },
-//                    { name: 'Accordion Window', iconCls: 'accordion-shortcut', module: 'acc-win' },
-//                    { name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
-//                    { name: 'System Status', iconCls: 'cpu-shortcut', module: 'systemstatus'}
-//                ]
-//            }),
-
-            wallpaper: 'wallpapers/Blue-Sencha.jpg',
-            wallpaperStretch: false
-        });
-    },
-    
-    onReady: function(fn, scope)
-    {
-        debugger;
-    },
     /**
      * Makes a request to the serverside to retreive the controllers which
      * are allowed in this session.
-     * @returns {void}
+     * @returns {undefined}
      */
     loadControllers: function()
     {
@@ -121,15 +75,12 @@ Ext.define('JaztecUtils.app.Application', {
         );
     },
     /**
-     * 
+     * Test if a controller with module capabilities already exists 
+     * inside the application.
+     * @param {JaztecUtils.app.Module} module
      */
     moduleExists: function(module)
     {
-        this.modules.every(function(obj){
-            if(obj.getController() === module) {
-                return true;
-            }
-        });
-        return false;
+        return (this.modules.indexOf(module) !== -1);
     }
 });

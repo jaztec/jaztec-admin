@@ -9,7 +9,7 @@ return array(
     'kjsencha'        => array(
         'library_path' => 'http://cdn.sencha.io/ext-4.2.0-gpl/',
         'js'           => array(
-            'ext' => 'ext-all.js',
+            'ext' => 'ext-all-debug.js',
         ),
         'css'          => array(
             'ext' => 'resources/css/ext-all-gray.css',

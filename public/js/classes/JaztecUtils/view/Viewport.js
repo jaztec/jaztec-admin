@@ -1,4 +1,4 @@
-Ext.define('JaztecAdmin.view.Viewport', {
+Ext.define('JaztecUtils.view.Viewport', {
     extend: 'Ext.container.Viewport',
     layout: 'fit',
     loader: {},
