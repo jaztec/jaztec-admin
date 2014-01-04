@@ -121,7 +121,6 @@ class LoginForm extends Component
                             // Reload the application's viewport.
                             JaztecAdminApp.viewport.removeAll();
                             JaztecAdminApp.viewport.getLoader().load();
-                            JaztecAdminApp.getApplication().loadControllers();
                         },
                         failure: function(obj, rsp)
                         {

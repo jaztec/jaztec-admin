@@ -1,11 +1,8 @@
 Ext.define('JaztecAdmin.controller.Main', {
-    extend: 'JaztecUtils.mvc.Module',
+    extend: 'JaztecUtils.app.Module',
     stores: [],
     views: [],
     refs: [],
-    init: function() {
-        var me = this;
-    },
     /**
      * This function should implement code to register actions related
      * to this controller into the global system.
@@ -13,8 +10,8 @@ Ext.define('JaztecAdmin.controller.Main', {
      */
     registerSystem: function(app)
     {
-        var settings = Ext.create('JaztecUtils.mvc.module.Settings');
-        settings.setName('Algemeen');
-        app.modules.push(settings);
+        var me = this;
+        var desktop = new Ext.ux.desktop.Desktop(app.getDesktopConfig());
+        app.setDesktop(desktop);
     }
 });

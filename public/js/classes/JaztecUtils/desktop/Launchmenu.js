@@ -3,13 +3,12 @@ Ext.define('JaztecUtils.desktop.Launchmenu', {
     
     alias: 'widget.launchmenu',
     id: 'launchmenu',
+    cls: 'x-menu',
     defaultAlign: 'bl-tl',
     floating: true,
-    shadow: true,
+    shadow: false,
     layout: 'fit',
     width: 300,
-    x: 2,
-    y: window.window.innerHeight - 76,
     
     initComponent: function()
     {
@@ -77,5 +76,15 @@ Ext.define('JaztecUtils.desktop.Launchmenu', {
     {
         var cmp = this.toolbar;
         cmp.add.apply(cmp, arguments);
+    },
+    
+    /**
+     * Sets the floating position.
+     */
+    reposition:function()
+    {
+        var me = this;
+        me.setX(2);
+        me.setY(window.innerHeight - 43 - me.getHeight());
     }
 });
