@@ -78,10 +78,16 @@ return array(
                     'JaztecAdmin.controller' => __DIR__ . '/../public/js/jaztecadmin/controller',
                 ),
             ),
+            'stores'      => array(
+
+            ),
+            'views'       => array(
+
+            ),
         ),
     ),
     /**
-     * Futher confuguration.
+     * Futher configuration.
      */
     'controllers'     => array(
         'invokables' => array(

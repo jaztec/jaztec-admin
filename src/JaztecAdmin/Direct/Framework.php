@@ -31,24 +31,100 @@ class Framework extends AuthorizedDirectObject
     public function getControllers(array $values)
     {
         $config     = $this->getServiceLocator()->get('Config');
+        if (!isset($config['jaztec_admin']['modules']['controllers']['paths'])) {
+            return array();
+        };
         $paths      = $config['jaztec_admin']['modules']['controllers']['paths'];
-        $result     = array();
-        $controller = '';
 
-        // Loop through the directory's.
+        return $this->getFiles($paths, 'controller');
+    }
+
+    /**
+     * Returns all views connected to a controller.
+     * 
+     * @param array $values
+     * @return array An array with the allowed views.
+     */
+    public function getViews(array $values)
+    {
+        $config = $this->getServiceLocator()->get('Config');
+        if (!isset($values['controller'])) {
+            throw new Exception('No controller data received.');  
+        }
+        $controller = $values['controller'];
+        if (!isset($config['jaztec_admin']['modules']['views'][$controller])) {
+            return array();
+        };
+        $paths  = $config['jaztec_admin']['modules']['views'][$controller]['paths'];
+
+        return $this->getFiles($paths, 'view');
+    }
+
+    /**
+     * Returns all stores connected to a controller.
+     * 
+     * @param array $values
+     * @return array An array with the allowed stores.
+     */
+    public function getStores(array $values)
+    {
+        $config = $this->getServiceLocator()->get('Config');
+        if (!isset($values['controller'])) {
+            throw new Exception('No controller data received.');  
+        }
+        $controller = $values['controller'];
+        if (!isset($config['jaztec_admin']['modules']['stores'][$controller])) {
+            return array();
+        };
+        $paths  = $config['jaztec_admin']['modules']['stores'][$controller]['paths'];
+
+        return $this->getFiles($paths, 'store');
+    }
+
+    /**
+     * Returns all the ExtJS objects in a given path and checks it against the
+     * ACL settings.
+     * 
+     * @param array $paths
+     * @param string $aclNamespace
+     * @return array
+     */
+    protected function getFiles(array $paths, $aclNamespace)
+    {
+        $result = array();
+        $object = '';
         foreach ($paths as $namespace => $path) {
-            // Read the directory
-            foreach (glob("$path/*.js") as $entry) {
+            foreach ($this->rglob('*.js', 0, "$path/") as $entry) {
                 $entry = pathinfo($entry);
-                $controller = $namespace . '.' . $entry['filename'];
+                $extraNs = str_replace('/', '.', str_replace($path, '', $entry['dirname']));
+                $object  = $namespace . $extraNs . '.' . $entry['filename'];
                 // Validate against the ACL.
-                if ($this->checkAcl('extjs-controller-' . $controller)) {
-                    // Return the ExtJS controller string prefixed with the namespace.
-                    $result[] = $controller;
+                if ($this->checkAcl("extjs-$aclNamespace-" . $object)) {
+                    $result[] = $object;
                 }
             }
         }
         return $result;
+    }
+
+    /**
+     * Recursive glob function.
+     * 
+     * @param int $pattern the pattern passed to glob()
+     * @param int $flags the flags passed to glob()
+     * @param string $path the path to scan
+     * @return mixed an array of files in the given path matching the pattern.
+     */
+    protected function rglob($pattern = '*', $flags = 0, $path = '')
+    {
+        $paths = glob($path . '*', GLOB_MARK | GLOB_ONLYDIR | GLOB_NOSORT);
+        $files = glob($path . $pattern, $flags);
+        foreach ($paths as $path) {
+            $files = array_merge(
+                $files, $this->rglob($pattern, $flags, $path)
+            );
+        }
+        return $files;
     }
 
 }

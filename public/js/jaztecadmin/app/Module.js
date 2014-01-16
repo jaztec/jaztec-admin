@@ -2,11 +2,7 @@ Ext.define('JaztecAdmin.app.Module', {
     extend: 'Ext.app.Controller',
     data: {
         // Global properties to be shared with all modules.
-        appData: {
-            app: null,
-            mainPanel: null,
-            mainToolbar: null
-        }
+        appData: {}
     },
 
     init: function()
@@ -17,10 +13,96 @@ Ext.define('JaztecAdmin.app.Module', {
             {
                 registered: false,
                 cardIndex: 0,
+                viewsLoaded: false,
+                storesLoaded: false,
+                appData: {
+                    app: null,
+                    mainPanel: null,
+                    mainToolbar: null
+                }
             },
             me.data
         );
+        // Load the views and stores.
+        if (!me.viewsLoaded()) {
+            me.loadViews();
+        }
+        if (!me.storesLoaded()) {
+            me.loadStores();
+        }
         me.callParent(arguments);
+    },
+
+    /**
+     * Get the views for this controller.
+     * @returns {undefined}
+     */
+    loadViews: function()
+    {
+        var me = this,
+            count,
+            it;
+        JaztecAdmin.Direct.Framework.getViews({controller: me.id}, function(response){
+            count = response.length; it = 0;
+            if (count === 0) {
+                me.setViewsLoaded(true);
+                if (me.storesLoaded()) {
+                    me.registerControls();
+                }
+            }
+            me.views = response;
+            Ext.each(me.views, function(view, index){
+                Ext.Loader.injectScriptElement(
+                    Ext.Loader.getPath(view),
+                    function() {
+                        it++;
+                        if (it === count) {
+                            me.setViewsLoaded(true);
+                            if (me.storesLoaded()) {
+                                me.registerControls();
+                            }
+                        }
+                    },
+                    function() {}
+                );
+            });
+        });        
+    },
+
+    /**
+     * Get the stores for this controller.
+     * @returns {undefined}
+     */
+    loadStores: function()
+    {
+        var me = this,
+            count,
+            it;
+        JaztecAdmin.Direct.Framework.getStores({controller: me.id}, function(response){
+            count = response.length; it = 0;
+            if (count === 0) {
+                me.setStoresLoaded(true);
+                if (me.viewsLoaded()) {
+                    me.registerControls();
+                }
+            }
+            me.stores = response;
+            Ext.each(me.stores, function(store, index){
+                Ext.Loader.injectScriptElement(
+                    Ext.Loader.getPath(store),
+                    function() {
+                        it++;
+                        if (it === count) {
+                            me.setStoresLoaded(true);
+                            if (me.viewsLoaded()) {
+                                me.registerControls();
+                            }
+                        }
+                    },
+                    function() {}
+                );
+            });
+        });
     },
 
     /**
@@ -28,7 +110,18 @@ Ext.define('JaztecAdmin.app.Module', {
      * to this controller into the global system.
      * @param {JaztecUtils.app.Application} app
      */
-    registerSystem: function(app) {},
+    registerSystem: function(app) 
+    {
+        var me = this;
+        me.setApplicationData(app);
+    },
+
+    /**
+     * This function adds the visual components to the application
+     * after all dependancies have been loaded.
+     * @returns {undefined}
+     */
+    registerControls: function() {},
 
     /**
      * Tells if the module has already registered itself.
@@ -37,6 +130,34 @@ Ext.define('JaztecAdmin.app.Module', {
     isRegistered: function()
     {
         return this.data.registered;
+    },
+
+    /**
+     * Tells if the views inside the current controller are loaded.
+     * @returns {boolean}
+     */
+    viewsLoaded: function()
+    {
+        return this.data.viewsLoaded;
+    },
+
+    setViewsLoaded: function(loaded)
+    {
+        this.data.viewsLoaded = loaded;
+    },
+
+    setStoresLoaded: function(loaded)
+    {
+        this.data.storesLoaded = loaded;
+    },
+
+    /**
+     * Tells if the views inside the current controller are loaded.
+     * @returns {boolean}
+     */
+    storesLoaded: function()
+    {
+        return this.data.storesLoaded;
     },
 
     /**

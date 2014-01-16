@@ -81,6 +81,7 @@ Ext.define('JaztecAdmin.app.Application', {
                         // Test if the controller provides register functionality
                         if (controller.registerSystem !== undefined && !me.moduleExists(controller)) {
                             controller.registerSystem(me);
+                            me.modules.push(controller);
                         }
                     }
                 });
