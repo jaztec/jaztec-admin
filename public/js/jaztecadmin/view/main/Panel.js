@@ -45,15 +45,20 @@ Ext.define('JaztecAdmin.view.main.Panel', {
             border: false
         },
         me.items = [
-            // Empty for the start.
+            // Open empty.
         ];
 
         me.callParent(arguments);
     },
+    
+    /**
+     * Returns the main toolbar.
+     * @returns {Ext.toolbar.Toolbar}
+     */
     getToolbar: function()
     {
         var me = this;
-        return me.tbar;
+        return me.down('toolbar');
     }
 
 });
