@@ -42,12 +42,10 @@ Ext.define('JaztecAdmin.app.Module', {
     injectDependencies: function(list, onReady)
     {
         var me = this,
-            count,
-            it;
-        count = list.length; it = 0;
+            count = list.length,
+            it = 0;
         if (count === 0) {
             onReady();
-            return;
         }
         Ext.each(list, function(item, index){
             Ext.Loader.injectScriptElement(
@@ -56,7 +54,6 @@ Ext.define('JaztecAdmin.app.Module', {
                     it++;
                     if (it === count) {
                         onReady();
-                        return;
                     }
                 },
                 function() {}
@@ -113,7 +110,7 @@ Ext.define('JaztecAdmin.app.Module', {
 
     /**
      * This function adds the visual components to the application
-     * after all dependancies have been loaded.
+     * after all dependencies have been loaded.
      * @returns {undefined}
      */
     registerControls: function() {},

@@ -12,7 +12,7 @@ Ext.define('JaztecAdmin.controller.Main', {
 
     /**
      * This function adds the visual components to the application
-     * after all dependancies have been loaded.
+     * after all dependencies have been loaded.
      * @returns {undefined}
      */
     registerControls: function()
