@@ -32,7 +32,6 @@ return array(
                 // Ext.Ux classes toevoegen aan de autoloader.
                 'paths'     => array(
                     'Ext.ux'      => '/js/classes/Ext.ux',
-                    'JaztecUtils' => '/js/classes/JaztecUtils',
                     'JaztecAdmin' => '/js/jaztecadmin',
                 ),
                 'variables' => array(

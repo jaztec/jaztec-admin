@@ -1,4 +1,4 @@
-Ext.define('JaztecUtils.app.Module', {
+Ext.define('JaztecAdmin.app.Module', {
     extend: 'Ext.app.Controller',
     
     /**

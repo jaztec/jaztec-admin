@@ -1,4 +1,4 @@
-Ext.define('JaztecUtils.view.main.Panel', {
+Ext.define('JaztecAdmin.view.main.Panel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.jaztec-main-panel',
     layout: 'card',
@@ -53,7 +53,7 @@ Ext.define('JaztecUtils.view.main.Panel', {
     getToolbar: function()
     {
         var me = this;
-        return me.down('toolbar');
+        return me.tbar;
     }
 
 });

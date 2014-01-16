@@ -1,5 +1,5 @@
 Ext.define('JaztecAdmin.controller.Main', {
-    extend: 'JaztecUtils.app.Module',
+    extend: 'JaztecAdmin.app.Module',
     stores: [],
     views: [],
     refs: [],
