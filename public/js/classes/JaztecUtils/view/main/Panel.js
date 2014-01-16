@@ -23,7 +23,15 @@ Ext.define('JaztecUtils.view.main.Panel', {
                 {
                     text: 'Logout',
                     iconCls: 'icon-logout-medium',
-                    action: 'logout'
+                    action: 'logout',
+                    /**
+                     * Logout the current user.
+                     * @param {Ext.button.Button} button
+                     */
+                    handler: function(button)
+                    {
+                        window.location.href = '/user/logout';
+                    }
                 }
 
             ]

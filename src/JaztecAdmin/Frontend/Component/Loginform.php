@@ -69,14 +69,14 @@ class LoginForm extends Component
                         array(
                             'xtype'      => 'textfield',
                             'fieldLabel' => 'Gebruikersnaam',
-                            'allowBlank' => true,
+                            'allowBlank' => false,
                             'name'       => 'identity',
                         ),
                         array(
                             'xtype'      => 'textfield',
                             'inputType'  => 'password',
                             'fieldLabel' => 'Wachtwoord',
-                            'allowBlank' => true,
+                            'allowBlank' => false,
                             'name'       => 'credential',
                         ),
                     )

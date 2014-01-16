@@ -94,7 +94,7 @@ return array(
             'jaztecadmin'           => array(
                 'type'          => 'hostname',
                 'options'       => array(
-                    'route' => 'core-admin.:host.nl',
+                    'route' => 'admin.:host.nl',
                 ),
                 'may_terminate' => true,
                 'child_routes'  => array(
