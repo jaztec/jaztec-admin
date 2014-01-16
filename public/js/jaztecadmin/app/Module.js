@@ -34,37 +34,50 @@ Ext.define('JaztecAdmin.app.Module', {
     },
 
     /**
+     * Injects a set of dependencies and calls a callback function
+     * when all has been injected.
+     * @param {array} list
+     * @param {function} onReady
+     */
+    injectDependencies: function(list, onReady)
+    {
+        var me = this,
+            count,
+            it;
+        count = list.length; it = 0;
+        if (count === 0) {
+            onReady();
+            return;
+        }
+        Ext.each(list, function(item, index){
+            Ext.Loader.injectScriptElement(
+                Ext.Loader.getPath(item),
+                function() {
+                    it++;
+                    if (it === count) {
+                        onReady();
+                        return;
+                    }
+                },
+                function() {}
+            );
+        });
+    },
+
+    /**
      * Get the views for this controller.
      * @returns {undefined}
      */
     loadViews: function()
     {
-        var me = this,
-            count,
-            it;
+        var me = this;
         JaztecAdmin.Direct.Framework.getViews({controller: me.id}, function(response){
-            count = response.length; it = 0;
-            if (count === 0) {
+            me.views = response;
+            me.injectDependencies(response, function() {
                 me.setViewsLoaded(true);
                 if (me.storesLoaded()) {
                     me.registerControls();
                 }
-            }
-            me.views = response;
-            Ext.each(me.views, function(view, index){
-                Ext.Loader.injectScriptElement(
-                    Ext.Loader.getPath(view),
-                    function() {
-                        it++;
-                        if (it === count) {
-                            me.setViewsLoaded(true);
-                            if (me.storesLoaded()) {
-                                me.registerControls();
-                            }
-                        }
-                    },
-                    function() {}
-                );
             });
         });        
     },
@@ -75,32 +88,14 @@ Ext.define('JaztecAdmin.app.Module', {
      */
     loadStores: function()
     {
-        var me = this,
-            count,
-            it;
+        var me = this;
         JaztecAdmin.Direct.Framework.getStores({controller: me.id}, function(response){
-            count = response.length; it = 0;
-            if (count === 0) {
+            me.stores = response;
+            me.injectDependencies(response, function() {
                 me.setStoresLoaded(true);
                 if (me.viewsLoaded()) {
                     me.registerControls();
                 }
-            }
-            me.stores = response;
-            Ext.each(me.stores, function(store, index){
-                Ext.Loader.injectScriptElement(
-                    Ext.Loader.getPath(store),
-                    function() {
-                        it++;
-                        if (it === count) {
-                            me.setStoresLoaded(true);
-                            if (me.viewsLoaded()) {
-                                me.registerControls();
-                            }
-                        }
-                    },
-                    function() {}
-                );
             });
         });
     },
@@ -244,6 +239,10 @@ Ext.define('JaztecAdmin.app.Module', {
                 me.toggleToolItem(button);
             }
         }, cfg);
+        // Test the index, the last 2 items are always the splitter and logout button.
+        while (toolbar.items.length - 2 < index) {
+            index--;
+        }
         toolbar.insert(index, cfg);
         return true;
     },
