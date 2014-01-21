@@ -13,6 +13,7 @@ Ext.define('JaztecAdmin.app.Module', {
             {
                 registered: false,
                 cardIndex: 0,
+                dependenciesLoaded: false,
                 viewsLoaded: false,
                 storesLoaded: false,
                 appData: {
@@ -23,6 +24,10 @@ Ext.define('JaztecAdmin.app.Module', {
             },
             me.data
         );
+        // Add events.
+        me.addEvents(
+            'dependencies-loaded'
+        );
         // Load the views and stores.
         if (!me.viewsLoaded()) {
             me.loadViews();
@@ -30,7 +35,37 @@ Ext.define('JaztecAdmin.app.Module', {
         if (!me.storesLoaded()) {
             me.loadStores();
         }
+        // Hook events.
+        me.on({
+            /**
+             * Event hook after dependency loading.
+             * @param {JaztecAdmin.app.Module} module
+             */
+            'dependencies-loaded': function(module) {
+                module.registerControls();
+            }
+        });
         me.callParent(arguments);
+    },
+
+    /**
+     * Function tests if all dependencies have been loaded. Fires 
+     * 'dependencies-loaded' event.
+     * @returns {boolean}
+     */
+    checkDependencies: function()
+    {
+        if (this.data.viewsLoaded === false) {
+            return false;
+        }
+        if (this.data.storesLoaded === false) {
+            return false;
+        }
+        if (!this.data.dependenciesLoaded) {
+            this.data.dependenciesLoaded = true;
+            this.fireEvent('dependencies-loaded', this);
+        }
+        return this.data.dependenciesLoaded;
     },
 
     /**
@@ -41,24 +76,16 @@ Ext.define('JaztecAdmin.app.Module', {
      */
     injectDependencies: function(list, onReady)
     {
-        var me = this,
-            count = list.length,
-            it = 0;
-        if (count === 0) {
-            onReady();
-        }
+        var me = this;
         Ext.each(list, function(item, index){
             Ext.Loader.injectScriptElement(
                 Ext.Loader.getPath(item),
-                function() {
-                    it++;
-                    if (it === count) {
-                        onReady();
-                    }
-                },
+                function() {},
                 function() {}
             );
         });
+        onReady();
+        me.checkDependencies();
     },
 
     /**
@@ -72,9 +99,6 @@ Ext.define('JaztecAdmin.app.Module', {
             me.views = response;
             me.injectDependencies(response, function() {
                 me.setViewsLoaded(true);
-                if (me.storesLoaded()) {
-                    me.registerControls();
-                }
             });
         });        
     },
@@ -90,9 +114,6 @@ Ext.define('JaztecAdmin.app.Module', {
             me.stores = response;
             me.injectDependencies(response, function() {
                 me.setStoresLoaded(true);
-                if (me.viewsLoaded()) {
-                    me.registerControls();
-                }
             });
         });
     },
@@ -133,11 +154,19 @@ Ext.define('JaztecAdmin.app.Module', {
         return this.data.viewsLoaded;
     },
 
+    /**
+     * Set the internal variable.
+     * @param {boolean} loaded
+     */
     setViewsLoaded: function(loaded)
     {
         this.data.viewsLoaded = loaded;
     },
 
+    /**
+     * Set the internal variable.
+     * @param {boolean} loaded
+     */
     setStoresLoaded: function(loaded)
     {
         this.data.storesLoaded = loaded;
@@ -271,7 +300,7 @@ Ext.define('JaztecAdmin.app.Module', {
         var me = this,
             toolbar = me.getMainToolbar();
         toolbar.items.each(function(item) {
-            if (undefined != item.iconCls) {
+            if (undefined !== item.iconCls) {
                 item.toggle(false, true);
             }
         });

@@ -9,7 +9,8 @@ Ext.define('JaztecAdmin.app.Application', {
     
     requires: [
         'JaztecAdmin.view.Viewport',
-        'JaztecAdmin.view.main.Panel'
+        'JaztecAdmin.view.main.Panel',
+        'JaztecAdmin.view.base.editor.MasterDetail'
     ],
     
     data: {},
