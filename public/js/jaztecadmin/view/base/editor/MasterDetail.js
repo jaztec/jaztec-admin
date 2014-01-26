@@ -21,8 +21,6 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
 
         // Add some card specific configuration.
         me.data = Ext.apply({
-            setUp: false,
-            module: null,
             childComponents: {
                 master: Ext.create('JaztecAdmin.view.base.editor.Master', me.masterCfg || { showSearchField: true, region: 'west' }),
                 detail: Ext.create('JaztecAdmin.view.base.editor.Detail', me.detailCfg || { })
@@ -45,16 +43,6 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
         });
 
         me.callParent(arguments);
-    },
-
-    /**
-     * Sets the card with some needed variables.
-     * @param {JaztecAdmin.app.Module} module
-     */
-    setUp: function(module)
-    {
-        this.data.module = module;
-        this.data.setUp = true;
     },
 
     /**
