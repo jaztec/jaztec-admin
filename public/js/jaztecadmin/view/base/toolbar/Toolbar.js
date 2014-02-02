@@ -6,7 +6,12 @@ Ext.define('JaztecAdmin.view.base.toolbar.Toolbar', {
 
         me.addEvents(
             'button-click'
-            );
+        );
+
+        var defaults = me.defaults || {
+            scale: 'medium'
+        };
+        me.defaults = defaults;
 
         me.callParent(arguments);
 
@@ -45,7 +50,7 @@ Ext.define('JaztecAdmin.view.base.toolbar.Toolbar', {
     {
         var me = this;
         me.items.each(function(item) {
-            if (undefined !== item.iconCls) {
+            if (undefined !== item.toggle) {
                 item.toggle(false, true);
             }
         });

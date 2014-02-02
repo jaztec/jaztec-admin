@@ -1,6 +1,7 @@
 Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     extend: 'Ext.panel.Panel',
     border: false,
+    alias: 'widget.masterdetail',
 
     layout: {
         type: 'border'
