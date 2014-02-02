@@ -255,7 +255,7 @@ Ext.define('JaztecAdmin.app.Module', {
             mainPanel = me.getMainPanel(),
             toolbar = me.getMainToolbar();
         if (toolbar === null) {
-            return false
+            return false;
         }
         // Hooking our own function into the toolbar item.
         cfg = Ext.apply({

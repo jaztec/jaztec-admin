@@ -16,8 +16,9 @@ Ext.define('JaztecAdmin.view.base.panel.ToolbarPanel', {
                 border: false
         });
 
+        // Apply event handling.
         toolbar.on({
-            'button-click': me.toolItemClicked
+            'button-click': Ext.bind(me.toolItemClicked, me)
         });
         me.data = Ext.apply({
             toolbar: toolbar
@@ -41,8 +42,9 @@ Ext.define('JaztecAdmin.view.base.panel.ToolbarPanel', {
      * @param {Ext.button.Button} button 
      */
     toolItemClicked: function(toolbar, button) {
+        var me = this;
         toolbar.toggleToolItem(button);
-        console.log(toolbar, button);
+        me.getLayout().setActiveItem(button.card);
     },
     /**
      * Add a card to the toolbar panel.
@@ -52,11 +54,11 @@ Ext.define('JaztecAdmin.view.base.panel.ToolbarPanel', {
     addCard: function(cfg, index)
     {
         var me = this,
-            toolbutton = me.getToolbar().addToolItem(index || 0, cfg.toolButton || {}),
             card = me.items.add(cfg);
-        toolbutton = Ext.apply({
-            card: card
-        }, toolbutton);
+        var config = Ext.merge({
+            card: card,
+        }, cfg.toolButton || {});
+        me.getToolbar().addToolItem(index || 0, config);
     },
     /**
      * Loads an array of card configurations.

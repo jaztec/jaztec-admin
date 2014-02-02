@@ -18,13 +18,19 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     {
         var me = this;
 
-//        me.data.store = Ext.create('Ext.data.Store', me.storeCfg || { });
-
-        // Add some card specific configuration.
+        // Add the master and detail panels.
+        var masterCfg = Ext.merge({
+            showSearchField: true, 
+            region: 'west',
+            masterDetail: me
+        }, me.masterCfg || {});
+        var detailCfg = Ext.merge({
+            masterDetail: me
+        });
         me.data = Ext.apply({
             childComponents: {
-                master: Ext.create('JaztecAdmin.view.base.editor.Master', me.masterCfg || { showSearchField: true, region: 'west' }),
-                detail: Ext.create('JaztecAdmin.view.base.editor.Detail', me.detailCfg || { })
+                master: Ext.create('JaztecAdmin.view.base.editor.Master', masterCfg),
+                detail: Ext.create('JaztecAdmin.view.base.editor.Detail', detailCfg)
             }
         }, me.data);
 
@@ -53,15 +59,6 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     getModule: function()
     {
         return this.data.module;
-    },
-
-    /**
-     * Check if the card has been set up.
-     * @returns {boolean}
-     */
-    isSetUp: function()
-    {
-        return this.data.setUp;
     },
 
     /**
