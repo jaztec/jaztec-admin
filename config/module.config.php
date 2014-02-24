@@ -73,16 +73,38 @@ return array(
      */
     'jaztec_admin'    => array(
         'modules' => array(
+            /**
+             * Array of ExtJS controllers as key-value pairs.
+             * The key of the 'paths' array will be used to append the file name 
+             * and path of the controller.
+             * '/' will be refactored to '.'.
+             */
             'controllers' => array(
                 'paths' => array(
                     'JaztecAdmin.controller' => __DIR__ . '/../public/js/jaztecadmin/controller',
                 ),
             ),
+            /**
+             * Array of ExtJS stores as key-value pairs. Wrapped by an array with a 
+             * key value of a valid ExtJS controller name. The JS function querying
+             * for stores will use the controller name as parameter.
+             * The key of the 'paths' array will be used to append the file name 
+             * and path of the store.
+             * '/' will be refactored to '.'.
+             */
             'stores'      => array(
-
+                'paths' => array(),
             ),
+            /**
+             * Array of ExtJS views as key-value pairs. Wrapped by an array with a 
+             * key value of a valid ExtJS controller name. The JS function querying
+             * for stores will use the controller name as parameter.
+             * The key of the 'paths' array will be used to append the file name 
+             * and path of the view.
+             * '/' will be refactored to '.'.
+             */
             'views'       => array(
-
+                'paths' => array(),
             ),
         ),
     ),
