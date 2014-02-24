@@ -90,10 +90,18 @@ return array(
              * for stores will use the controller name as parameter.
              * The key of the 'paths' array will be used to append the file name 
              * and path of the store.
+             * @example 
+             *  'stores' => array(
+             *      'ExtJSApp.controller.[ControllerName] => array(
+             *          'paths' => array(
+             *              'ExtJSApp.store' => __DIR__ . '/../public/js/extjsapp/store',
+             *          )
+             *      )
+             *  )
              * '/' will be refactored to '.'.
              */
             'stores'      => array(
-                'paths' => array(),
+
             ),
             /**
              * Array of ExtJS views as key-value pairs. Wrapped by an array with a 
@@ -101,10 +109,18 @@ return array(
              * for stores will use the controller name as parameter.
              * The key of the 'paths' array will be used to append the file name 
              * and path of the view.
+             * @example 
+             *  'views' => array(
+             *      'ExtJSApp.controller.[ControllerName] => array(
+             *          'paths' => array(
+             *              'ExtJSApp.view' => __DIR__ . '/../public/js/extjsapp/view',
+             *          )
+             *      )
+             *  )
              * '/' will be refactored to '.'.
              */
             'views'       => array(
-                'paths' => array(),
+
             ),
         ),
     ),
