@@ -10,7 +10,7 @@ use JaztecAdmin\Frontend\Component\Loginform;
 use JaztecAdmin\Frontend\ApplicationView;
 
 class Module implements
-AutoloaderProviderInterface,
+    AutoloaderProviderInterface,
     ConfigProviderInterface,
     ServiceProviderInterface
 {

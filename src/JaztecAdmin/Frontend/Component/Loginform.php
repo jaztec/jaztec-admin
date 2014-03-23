@@ -15,18 +15,6 @@ class Loginform extends Component
 
     public function __construct()
     {
-        $jsFuncKeypress   = "function (text, e) {
-            if (e.button === 12) {
-                var form = text.up('form'),
-                    loginWindow = form.up('#login-container');
-                loginWindow.submit(form);
-            }
-        }";
-        $jsFuncButton     = "function (btn) {
-            var loginWindow = btn.up('#login-container'),
-                form = loginWindow.down('form');
-                loginWindow.submit(form);
-        }";
         $this->attributes = array(
             'extend' => 'Ext.container.Container',
             'width'  => 450,
@@ -62,7 +50,7 @@ class Loginform extends Component
                         'anchor'          => '100%',
                         'enableKeyEvents' => true,
                         'listeners'       => array(
-                            'keypress' => new Expr($jsFuncKeypress),
+                            'keypress' => new Expr($this->getJsFuncKeypress()),
                         ),
                     ),
                     'items'         => array(
@@ -99,12 +87,13 @@ class Loginform extends Component
                             'text'    => 'Inloggen',
                             'iconCls' => 'icon-engage',
                             'scale'   => 'large',
-                            'handler' => new Expr($jsFuncButton),
+                            'handler' => new Expr($this->getJsFuncButton()),
                         ),
                     )
                 ),
             ),
-            'submit' => new Expr("
+            'submit' => new Expr(
+                "
                 function (form) {
                     var me = this;
                     if (form.getForm().isValid()) {
@@ -128,8 +117,37 @@ class Loginform extends Component
                         }
                     });
                 }
-            "),
+                "
+            ),
         );
     }
 
+    /**
+     * Returns the keypress handler of the loginform.
+     * @return string
+     */
+    protected function getJsFuncKeypress()
+    {
+        return "function (text, e) {
+            if (e.button === 12) {
+                var form = text.up('form'),
+                    loginWindow = form.up('#login-container');
+                loginWindow.submit(form);
+            }
+        }";
+    }
+
+    /**
+     * Returns the button handler for the login form.
+     * 
+     * @return string
+     */
+    protected function getJsFuncButton()
+    {
+        return "function (btn) {
+            var loginWindow = btn.up('#login-container'),
+                form = loginWindow.down('form');
+                loginWindow.submit(form);
+        }";
+    }
 }
