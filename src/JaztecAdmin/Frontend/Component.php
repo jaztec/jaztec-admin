@@ -6,5 +6,5 @@ use KJSencha\Frontend\Component as KJComponent;
 
 class Component extends KJComponent
 {
-    
+
 }

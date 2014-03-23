@@ -17,7 +17,7 @@ AutoloaderProviderInterface,
 
     public function init(ModuleManager $moduleManager)
     {
-        
+
     }
 
     /**
@@ -54,7 +54,7 @@ AutoloaderProviderInterface,
     {
         return array(
             'factories' => array(
-                'JaztecAdminComponent.Gateway' => function($sm) {
+                'JaztecAdminComponent.Gateway' => function ($sm) {
                     $authService = $sm->get('zfcuser_auth_service');
                     if ($authService->hasIdentity()) {
                         return new ApplicationView(array());

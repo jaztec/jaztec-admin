@@ -2,7 +2,6 @@
 
 namespace JaztecAdmin\Frontend;
 
-use JaztecAdmin\Frontend\Component;
 use KJSencha\Frontend\Expr;
 
 /**
@@ -21,8 +20,7 @@ class ApplicationView extends Component
     public function __construct()
     {
         $funcMainPanel = new Expr("
-            function()
-            {
+            function () {
                 return this.down('panel');
             }
         ");

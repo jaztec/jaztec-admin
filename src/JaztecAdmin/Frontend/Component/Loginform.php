@@ -8,21 +8,21 @@ use KJSencha\Frontend\Expr;
 /**
  * A loginform to be rendered with ExtJS
  */
-class LoginForm extends Component
+class Loginform extends Component
 {
 
     protected $attributes = array();
 
-    function __construct()
+    public function __construct()
     {
-        $jsFuncKeypress   = "function(text, e) {
+        $jsFuncKeypress   = "function (text, e) {
             if (e.button === 12) {
                 var form = text.up('form'),
                     loginWindow = form.up('#login-container');
                 loginWindow.submit(form);
             }
         }";
-        $jsFuncButton     = "function(btn) {
+        $jsFuncButton     = "function (btn) {
             var loginWindow = btn.up('#login-container'),
                 form = loginWindow.down('form');
                 loginWindow.submit(form);
@@ -105,8 +105,7 @@ class LoginForm extends Component
                 ),
             ),
             'submit' => new Expr("
-                function(form) 
-                {
+                function (form) {
                     var me = this;
                     if (form.getForm().isValid()) {
                         form.body.mask('Inloggen');
@@ -114,16 +113,14 @@ class LoginForm extends Component
                         return false;
                     }
                     form.getForm().submit({
-                        success: function(obj, response)
-                        {
+                        success: function (obj, response) {
                             form.body.unmask();
                             me.close();
                             // Reload the application's viewport.
                             JaztecAdminApp.viewport.removeAll();
                             JaztecAdminApp.viewport.getLoader().load();
                         },
-                        failure: function(obj, rsp)
-                        {
+                        failure: function (obj, rsp) {
                             form.getForm().markInvalid({
                                 'username-field': Ext.decode(rsp.response.responseText)['messages']
                             });

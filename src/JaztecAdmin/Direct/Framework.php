@@ -20,12 +20,12 @@ class Framework extends AuthorizedDirectObject
 
     /**
      * Scans the paths set in the KJSencha path loader to collect the controllers
-     * and scans them against the ACL returning only the controllers the user is 
+     * and scans them against the ACL returning only the controllers the user is
      * allowed to use.
-     * 
+     *
      * The reader will scan for Ext.define statements with a .controller. name.
-     * 
-     * @param array $values Client side params
+     *
+     * @param  array $values Client side params
      * @return array An array of the allowed controllers to be active.
      */
     public function getControllers(array $values)
@@ -41,15 +41,15 @@ class Framework extends AuthorizedDirectObject
 
     /**
      * Returns all views connected to a controller.
-     * 
-     * @param array $values
+     *
+     * @param  array $values
      * @return array An array with the allowed views.
      */
     public function getViews(array $values)
     {
         $config = $this->getServiceLocator()->get('Config');
         if (!isset($values['controller'])) {
-            throw new Exception('No controller data received.');  
+            throw new Exception('No controller data received.');
         }
         $controller = $values['controller'];
         if (!isset($config['jaztec_admin']['modules']['views'][$controller])) {
@@ -62,15 +62,15 @@ class Framework extends AuthorizedDirectObject
 
     /**
      * Returns all stores connected to a controller.
-     * 
-     * @param array $values
+     *
+     * @param  array $values
      * @return array An array with the allowed stores.
      */
     public function getStores(array $values)
     {
         $config = $this->getServiceLocator()->get('Config');
         if (!isset($values['controller'])) {
-            throw new Exception('No controller data received.');  
+            throw new Exception('No controller data received.');
         }
         $controller = $values['controller'];
         if (!isset($config['jaztec_admin']['modules']['stores'][$controller])) {
@@ -84,9 +84,9 @@ class Framework extends AuthorizedDirectObject
     /**
      * Returns all the ExtJS objects in a given path and checks it against the
      * ACL settings.
-     * 
-     * @param array $paths
-     * @param string $aclNamespace
+     *
+     * @param  array  $paths
+     * @param  string $aclNamespace
      * @return array
      */
     protected function getFiles(array $paths, $aclNamespace)
@@ -104,16 +104,17 @@ class Framework extends AuthorizedDirectObject
                 }
             }
         }
+
         return $result;
     }
 
     /**
      * Recursive glob function.
-     * 
-     * @param int $pattern the pattern passed to glob()
-     * @param int $flags the flags passed to glob()
-     * @param string $path the path to scan
-     * @return mixed an array of files in the given path matching the pattern.
+     *
+     * @param  int    $pattern the pattern passed to glob()
+     * @param  int    $flags   the flags passed to glob()
+     * @param  string $path    the path to scan
+     * @return mixed  an array of files in the given path matching the pattern.
      */
     protected function rglob($pattern = '*', $flags = 0, $path = '')
     {
@@ -124,6 +125,7 @@ class Framework extends AuthorizedDirectObject
                 $files, $this->rglob($pattern, $flags, $path)
             );
         }
+
         return $files;
     }
 
