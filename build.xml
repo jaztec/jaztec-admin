@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="JaztecAdmin" default="build">
-    <target name="build" depends="install,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox,phpunit,phpcb"/>
+    <target name="build" depends="install,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox,phpunit,phpcb,jsdocs"/>
 
-    <target name="build-parallel" depends="install,prepare,lint,tools-parallel,phpunit,phpcb"/>
+    <target name="build-parallel" depends="install,prepare,lint,tools-parallel,phpunit,phpcb,jsdocs"/>
 
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
@@ -168,4 +168,15 @@
             <arg path="${basedir}/build/code-browser" />
         </exec>
     </target>
+    
+	<target name="jsdocs" description="Javascript / ExtJS documentatie genereren">
+
+		<exec executable="jsduck">
+
+			<arg path="public/js/jaztecadmin" />
+
+			<arg value="--output" />
+			<arg path="build/jsdocs" />
+		</exec>
+	</target>
 </project>
