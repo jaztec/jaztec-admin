@@ -2,7 +2,7 @@
 <project name="JaztecAdmin" default="build">
     <target name="build" depends="install,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox,phpunit,phpcb"/>
 
-    <target name="build-parallel" depends="install,prepare,lint,tools-parallel,phpunit,phpcb"/>
+    <target name="build-parallel" depends="install,prepare,lint,tools-parallel,phpunit,phpcb,run-jslint"/>
 
     <target name="tools-parallel" description="Run tools in parallel">
         <parallel threadCount="2">
@@ -81,6 +81,20 @@
                 <modified />
             </fileset>
         </apply>
+    </target>
+
+	<!-- JsLint -->
+	<target name="run-jslint" description="Running JSLint on the Javascript code">
+        <taskdef name="jslint"
+                 classname="com.googlecode.jslint4java.ant.JSLintTask"
+                 classpath="${env.KJ_PLUGINS}/jslint/jslint4java-2.0.2.jar" />
+        <jslint options="browser,debug,eqeq,plusplus,sloppy,undef,vars,white,nomen" haltOnFailure="false">
+            <predef>setTimeout, history, window, document</predef>
+            <formatter type="xml" destfile="${reports.dir}/jslint.xml" />
+            <fileset dir="modules/**/public"
+                     includes="**/*.js" />
+                    <!--excludes="**/node_modules/**"--> 
+        </jslint>
     </target>
 
     <target name="phploc" description="Measure project size using PHPLOC">
