@@ -1,4 +1,8 @@
 /*globals Ext, App, JaztecAdmin*/
+/**
+ * Application class for the JaztecAdmin Framework.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 Ext.define('JaztecAdmin.app.Application', {
     extend: 'Ext.app.Application',
     

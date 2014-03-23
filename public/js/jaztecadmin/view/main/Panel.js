@@ -1,3 +1,8 @@
+/*globals Ext, JaztecAdmin*/
+/**
+ * Source object for the main panel.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 Ext.define('JaztecAdmin.view.main.Panel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.jaztec-main-panel',

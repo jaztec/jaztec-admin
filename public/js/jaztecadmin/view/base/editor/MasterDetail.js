@@ -1,3 +1,11 @@
+/*globals Ext, JaztecAdmin*/
+/**
+ * Master detail main editor. This object will be responsible for the handling
+ * of the seperate master and detail forms.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ * @param {type} param1
+ * @param {type} param2
+ */
 Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     extend: 'Ext.panel.Panel',
     border: false,

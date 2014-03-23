@@ -1,3 +1,8 @@
+/*globals Ext, JaztecAdmin*/
+/**
+ * Simple main controller to house a home section.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 Ext.define('JaztecAdmin.controller.Main', {
     extend: 'JaztecAdmin.app.Module',
     stores: [],

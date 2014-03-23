@@ -1,3 +1,8 @@
+/*globals Ext, JaztecAdmin*/
+/**
+ * Viewport for the main application.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 Ext.define('JaztecAdmin.view.Viewport', {
     extend: 'Ext.container.Viewport',
     layout: 'fit',

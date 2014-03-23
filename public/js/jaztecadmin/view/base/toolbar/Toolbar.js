@@ -1,3 +1,8 @@
+/*globals Ext, JaztecAdmin*/
+/**
+ * A toolbar object with some shortcut functions.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 Ext.define('JaztecAdmin.view.base.toolbar.Toolbar', {
     extend: 'Ext.toolbar.Toolbar',
     initComponent: function() {

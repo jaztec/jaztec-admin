@@ -1,3 +1,9 @@
+/*globals Ext, JaztecAdmin*/
+/**
+ * A panel with toolbar funcionality. Cards can be added and a toolbar will
+ * appear to bring the card to the front.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 Ext.define('JaztecAdmin.view.base.panel.ToolbarPanel', {
     extend: 'Ext.panel.Panel',
     border: false,

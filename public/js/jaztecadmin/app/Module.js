@@ -1,4 +1,8 @@
 /*globals Ext, JaztecAdmin*/
+/**
+ * A base class with functionality for a controller of the module type.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 Ext.define('JaztecAdmin.app.Module', {
     extend: 'Ext.app.Controller',
     data: {
