@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="JaztecAdmin" default="build">
-    <target name="build" depends="install,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox,phpunit,phpcb"/>
+    <target name="build" depends="install,prepare,lint,phploc,pdepend,phpmd-ci,phpcs-ci,phpcpd,phpdox,phpunit,phpcb,run-jslint"/>
 
     <target name="build-parallel" depends="install,prepare,lint,tools-parallel,phpunit,phpcb,run-jslint"/>
 
