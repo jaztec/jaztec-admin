@@ -43,7 +43,7 @@ Ext.define('JaztecAdmin.view.main.Panel', {
         me.defaults = {
             layout: 'fit',
             border: false
-        },
+        };
         me.items = [
             // Open empty.
         ];

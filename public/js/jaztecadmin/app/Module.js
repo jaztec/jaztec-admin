@@ -1,3 +1,4 @@
+/*globals Ext, JaztecAdmin*/
 Ext.define('JaztecAdmin.app.Module', {
     extend: 'Ext.app.Controller',
     data: {
@@ -240,7 +241,7 @@ Ext.define('JaztecAdmin.app.Module', {
      */
     getMainPanel: function()
     {
-        return this.data.appData.mainPanel
+        return this.data.appData.mainPanel;
     },
 
     /**

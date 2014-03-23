@@ -1,3 +1,4 @@
+/*globals Ext, App, JaztecAdmin*/
 Ext.define('JaztecAdmin.app.Application', {
     extend: 'Ext.app.Application',
     

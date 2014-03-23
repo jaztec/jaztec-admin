@@ -56,7 +56,7 @@ Ext.define('JaztecAdmin.view.base.panel.ToolbarPanel', {
         var me = this,
             card = me.items.add(cfg);
         var config = Ext.merge({
-            card: card,
+            card: card
         }, cfg.toolButton || {});
         me.getToolbar().addToolItem(index || 0, config);
     },
