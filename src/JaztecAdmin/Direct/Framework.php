@@ -7,11 +7,14 @@ use JaztecAcl\Direct\AuthorizedDirectObject;
 /**
  * Direct class to hold all the framework related functions.
  *
- * @author Jasper van Herpt
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */
 class Framework extends AuthorizedDirectObject
 {
 
+    /**
+     * Create a Framework object, set the internal ACL identifier.
+     */
     public function __construct()
     {
         parent::__construct();

@@ -7,12 +7,16 @@ use KJSencha\Frontend\Expr;
 
 /**
  * A loginform to be rendered with ExtJS
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */
 class Loginform extends Component
 {
 
     protected $attributes = array();
 
+    /**
+     * Create a login form configuration for the ExtJS component loader.
+     */
     public function __construct()
     {
         $this->attributes = array(

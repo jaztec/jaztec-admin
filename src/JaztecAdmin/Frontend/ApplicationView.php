@@ -6,8 +6,7 @@ use KJSencha\Frontend\Expr;
 
 /**
  * Main application view
- *
- * @author Jasper van Herpt
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */
 class ApplicationView extends Component
 {
@@ -17,6 +16,9 @@ class ApplicationView extends Component
      */
     protected $attributes = array();
 
+    /**
+     * Create an ApplicationView configuration for the ExtJS component loader.
+     */
     public function __construct()
     {
         $funcMainPanel = new Expr(

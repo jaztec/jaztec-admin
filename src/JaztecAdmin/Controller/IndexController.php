@@ -5,6 +5,10 @@ namespace JaztecAdmin\Controller;
 use JaztecAcl\Controller\AuthorizedController;
 use Zend\View\Model\JsonModel;
 
+/**
+ * ZF2 IndexController instance.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
 class IndexController extends AuthorizedController
 {
 
