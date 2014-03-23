@@ -20,7 +20,7 @@ class Module implements
      * @param \Zend\ModuleManager\ModuleManager $moduleManager
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
-    public function init(ModuleManager $moduleManager)
+    public function init()
     {
         
     }
