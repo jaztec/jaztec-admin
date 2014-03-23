@@ -19,11 +19,13 @@ class ApplicationView extends Component
 
     public function __construct()
     {
-        $funcMainPanel = new Expr("
-            function () {
-                return this.down('panel');
-            }
-        ");
+        $funcMainPanel = new Expr(
+            "
+                function () {
+                    return this.down('panel');
+                }
+            "
+        );
         $this->attributes = array(
             'layout' => 'fit',
             'id'     => 'app-main-body',
@@ -36,5 +38,4 @@ class ApplicationView extends Component
             'getMainPanel' => $funcMainPanel,
         );
     }
-
 }

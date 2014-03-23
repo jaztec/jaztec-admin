@@ -15,9 +15,14 @@ class Module implements
     ServiceProviderInterface
 {
 
+    /**
+     * {@inheritDoc}
+     * @param \Zend\ModuleManager\ModuleManager $moduleManager
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public function init(ModuleManager $moduleManager)
     {
-
+        
     }
 
     /**
@@ -65,5 +70,4 @@ class Module implements
             )
         );
     }
-
 }

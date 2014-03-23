@@ -31,12 +31,13 @@ class Framework extends AuthorizedDirectObject
     public function getControllers(array $values)
     {
         $config     = $this->getServiceLocator()->get('Config');
+        /* $config array */
         if (!isset($config['jaztec_admin']['modules']['controllers']['paths'])) {
             return array();
-        };
-        $paths      = $config['jaztec_admin']['modules']['controllers']['paths'];
+        }
+        $values['paths']      = $config['jaztec_admin']['modules']['controllers']['paths'];
 
-        return $this->getFiles($paths, 'controller');
+        return $this->getFiles($values['paths'], 'controller');
     }
 
     /**
@@ -54,7 +55,7 @@ class Framework extends AuthorizedDirectObject
         $controller = $values['controller'];
         if (!isset($config['jaztec_admin']['modules']['views'][$controller])) {
             return array();
-        };
+        }
         $paths  = $config['jaztec_admin']['modules']['views'][$controller]['paths'];
 
         return $this->getFiles($paths, 'view');
@@ -75,7 +76,7 @@ class Framework extends AuthorizedDirectObject
         $controller = $values['controller'];
         if (!isset($config['jaztec_admin']['modules']['stores'][$controller])) {
             return array();
-        };
+        }
         $paths  = $config['jaztec_admin']['modules']['stores'][$controller]['paths'];
 
         return $this->getFiles($paths, 'store');
@@ -122,11 +123,11 @@ class Framework extends AuthorizedDirectObject
         $files = glob($path . $pattern, $flags);
         foreach ($paths as $path) {
             $files = array_merge(
-                $files, $this->rglob($pattern, $flags, $path)
+                $files,
+                $this->rglob($pattern, $flags, $path)
             );
         }
 
         return $files;
     }
-
 }

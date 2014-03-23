@@ -36,5 +36,4 @@ class IndexController extends AuthorizedController
             )
         );
     }
-
 }
