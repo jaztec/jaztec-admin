@@ -3,8 +3,6 @@
  * Master detail main editor. This object will be responsible for the handling
  * of the seperate master and detail forms.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
- * @param {type} param1
- * @param {type} param2
  */
 Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     extend: 'Ext.panel.Panel',
@@ -42,6 +40,11 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
             }
         }, me.data);
 
+        // Test if a store is passed by configuration.
+        if (!me.data.store === undefined) {
+            this.setStore(me.data.store);
+        }
+
         me.items = [
             me.data.childComponents.master,
             me.data.childComponents.detail
@@ -76,5 +79,19 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     getStore: function()
     {
         return this.data.store;
+    },
+
+    /**
+     * Sets the internal store variable. Loads it into the coupled master and
+     * detail panels.
+     * @param {Ext.data.Store} store
+     * @returns {JaztecAdmin.view.base.editor.MasterDetail}
+     */
+    setStore: function(store)
+    {
+        this.data.store = store;
+        // Load the master panel.
+        // Load the detail panel.
+        return this;
     }
 });
