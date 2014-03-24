@@ -7,11 +7,14 @@ use JaztecAdmin\Controller\IndexController;
 use PHPUnit_Framework_TestCase;
 use Zend\Mvc\Router\Http\TreeRouteStack as HttpRouter;
 use Zend\Http\PhpEnvironment\Request;
-//use Zend\Http\Request;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\Router\RouteMatch;
 
-class IndexControllerTest extends \PHPUnit_Framework_TestCase
+/**
+ * Testcases for the JaztecAdmin\Controller\IndexController.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
+ */
+class IndexControllerTest extends PHPUnit_Framework_TestCase
 {
 
     /**
@@ -39,6 +42,9 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
      */
     protected $event;
 
+    /**
+     * Setup the testcase.
+     */
     protected function setUp()
     {
         \Zend\Console\Console::overrideIsConsole(false);
@@ -59,11 +65,15 @@ class IndexControllerTest extends \PHPUnit_Framework_TestCase
         $this->controller->setServiceLocator($serviceManager);
     }
 
+    /**
+     * Test whether the index controller returns the a valid status
+     * @covers \JaztecAdmin\Controller\IndexController::indexAction
+     */
     public function testIndexResponse()
     {
         $this->routeMatch->setParam('action', 'index');
 
-        $result   = $this->controller->dispatch($this->request);
+        $this->controller->dispatch($this->request);
         $response = $this->controller->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());

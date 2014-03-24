@@ -34,6 +34,7 @@ class Framework extends AuthorizedDirectObject
     public function getControllers(array $values)
     {
         $config     = $this->getServiceLocator()->get('Config');
+
         /* $config array */
         if (!isset($config['jaztec_admin']['modules']['controllers']['paths'])) {
             return array();
