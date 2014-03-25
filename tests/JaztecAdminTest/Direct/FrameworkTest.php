@@ -33,8 +33,12 @@ class FrameworkTest extends PHPUnit_Framework_TestCase
 
         // Add some data to the test database.
         $guestRole = new \JaztecAcl\Entity\Role('guest');
-        $coreResource = new \JaztecAcl\Entity\Resource('jaztec/core-admin');
-        $directResource = new \JaztecAcl\Entity\Resource('jaztecadmin/direct/framework', $coreResource);
+        $coreResource = new \JaztecAcl\Entity\Resource();
+        $coreResource->setName('jaztec/core-admin')
+            ->setSort(0);
+        $directResource = new \JaztecAcl\Entity\Resource();
+        $directResource->setName('jaztecadmin/direct/framework')
+            ->setParent($coreResource);
         $em->persist($guestRole);
         $em->persist($coreResource);
         $em->persist($directResource);
