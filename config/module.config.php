@@ -191,20 +191,20 @@ return array(
             'ViewJsonStrategy'
         ),
     ),
-    'doctrine'        => array(
-        'driver' => array(
-            'jaztecadmin_driver' => array(
-                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
-                'cache' => 'array',
-                'paths' => array(
-                    __DIR__ . '/../src/JaztecAdmin/Entity'
-                )
-            ),
-            'orm_default'        => array(
-                'drivers' => array(
-                    'JaztecAdmin\Entity' => 'jaztecadmin_driver'
-                )
-            )
-        )
-    ),
+//    'doctrine'        => array(
+//        'driver' => array(
+//            'jaztecadmin_driver' => array(
+//                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+//                'cache' => 'array',
+//                'paths' => array(
+//                    __DIR__ . '/../src/JaztecAdmin/Entity'
+//                )
+//            ),
+//            'orm_default'        => array(
+//                'drivers' => array(
+//                    'JaztecAdmin\Entity' => 'jaztecadmin_driver'
+//                )
+//            )
+//        )
+//    ),
 );
