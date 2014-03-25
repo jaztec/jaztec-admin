@@ -38,7 +38,8 @@ class FrameworkTest extends PHPUnit_Framework_TestCase
             ->setSort(0);
         $directResource = new \JaztecAcl\Entity\Resource();
         $directResource->setName('jaztecadmin/direct/framework')
-            ->setParent($coreResource);
+            ->setParent($coreResource)
+            ->setSort(1);
         $em->persist($guestRole);
         $em->persist($coreResource);
         $em->persist($directResource);
