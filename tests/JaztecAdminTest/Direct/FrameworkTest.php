@@ -32,7 +32,9 @@ class FrameworkTest extends PHPUnit_Framework_TestCase
         $this->directObject->setEntityManager($em);
 
         // Add some data to the test database.
-        $guestRole = new \JaztecAcl\Entity\Role('guest');
+        $guestRole = new \JaztecAcl\Entity\Role();
+        $guestRole->setName('guest')
+            ->setSort(0);
         $coreResource = new \JaztecAcl\Entity\Resource();
         $coreResource->setName('jaztec/core-admin')
             ->setSort(0);
