@@ -71,6 +71,15 @@ class Bootstrap
         $serviceManager->setService('ApplicationConfig', $config);
         $serviceManager->get('ModuleManager')->loadModules();
 
+        // Schema Tool to process our entities
+        $em = $serviceManager->get('doctrine.entitymanager.orm_default');
+        $tool = new \Doctrine\ORM\Tools\SchemaTool($em);
+        $classes = $em->getMetaDataFactory()->getAllMetaData();
+
+        // Drop all classes and re-build them for each test case
+        $tool->dropSchema($classes);
+        $tool->createSchema($classes);
+
         static::$serviceManager = $serviceManager;
         static::$config = $config;
     }
@@ -100,7 +109,7 @@ class Bootstrap
         $vendorPath = static::findParentPath('vendor');
 
         if (is_readable($vendorPath . '/autoload.php')) {
-            $loader = include $vendorPath . '/autoload.php';
+            include $vendorPath . '/autoload.php';
         } else {
             $zf2Path = getenv('ZF2_PATH') ? : (defined('ZF2_PATH') ? ZF2_PATH : (is_dir($vendorPath . '/ZF2/library') ? $vendorPath . '/ZF2/library' : false));
 
