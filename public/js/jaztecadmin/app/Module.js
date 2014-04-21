@@ -63,6 +63,7 @@ Ext.define('JaztecAdmin.app.Module', {
      * Function tests if all dependencies have been loaded. Fires 
      * 'dependencies-loaded' event.
      * @returns {boolean}
+     * @protected
      */
     checkDependencies: function()
     {
@@ -84,6 +85,7 @@ Ext.define('JaztecAdmin.app.Module', {
      * when all has been injected.
      * @param {array} list
      * @param {function} onReady
+     * @protected
      */
     injectDependencies: function(list, onReady)
     {
@@ -193,7 +195,6 @@ Ext.define('JaztecAdmin.app.Module', {
      * Sets whether the module has been registered to the main 
      * application.
      * @param {boolean} registered
-     * @returns {undefined}
      */
     setRegistered: function(registered)
     {
@@ -212,7 +213,6 @@ Ext.define('JaztecAdmin.app.Module', {
     /**
      * Sets the index of this modules card.
      * @param {Number} index
-     * @returns {undefined}
      */
     setCardIndex: function(index)
     {
@@ -222,7 +222,6 @@ Ext.define('JaztecAdmin.app.Module', {
     /**
      * Set the internal variables regarding the application.
      * @param {JaztecUtils.app.Application} app
-     * @returns {undefined}
      */
     setApplicationData: function(app)
     {
@@ -302,6 +301,7 @@ Ext.define('JaztecAdmin.app.Module', {
     /**
      * Toggle the current toolbutton on.
      * @param {Ext.button.Button} btn
+     * @protected
      */
     toggleToolItem: function(btn)
     {
