@@ -116,5 +116,54 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     getDetail: function()
     {
         return this.data.childComponents.detail;
+    },
+
+    /**
+     * Select a record in the master detail.
+     * @param {Ext.data.Model} record
+     * @todo Implement
+     */
+    selectRecord: function(record)
+    {
+        
+    },
+
+    /**
+     * Selects multiple records in the master detail.
+     * @param {Ext.data.Model[]} records
+     * @todo Implement
+     */
+    selectRecords: function(records)
+    {
+        
+    },
+
+    /**
+     * Adds a new record to the master detail
+     * @returns {Ext.data.Model}
+     * @todo Implement
+     */
+    addRecord: function()
+    {
+        
+    },
+
+    /**
+     * Deletes a set of records.
+     * @param {Ext.data.Model[]} records
+     * @todo Implement
+     */
+    deleteRecords: function(records)
+    {
+        
+    },
+
+    /**
+     * Refresh the main store. 
+     * @todo Implement
+     */
+    refresh: function()
+    {
+        
     }
 });

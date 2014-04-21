@@ -66,6 +66,10 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
             grid
         ];
 
+        grid.on({
+            selectionchange: Ext.bind(this.onSelectionChange, this)
+        });
+
         me.items = items;
         me.callParent(arguments);
 
@@ -127,7 +131,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
             panel.add({
                 xtype: 'button',
                 iconCls: 'icon-add-small',
-                handler: Ext.bind(this.onAddButtonClick, this)
+                handler: Ext.bind(this.onAdd, this)
             });
         };
         // Add a delete button
@@ -135,7 +139,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
             panel.add({
                 xtype: 'button',
                 iconCls: 'icon-bin-small',
-                handler: Ext.bind(this.onDeleteButtonClick, this)
+                handler: Ext.bind(this.onDelete, this)
             });
         };
         // Add a refresh button
@@ -143,7 +147,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
             panel.add({
                 xtype: 'button',
                 iconCls: 'icon-refresh-small',
-                handler: Ext.bind(this.onRefreshButtonClick, this)
+                handler: Ext.bind(this.onRefresh, this)
             });
         };
         // Add a searchfield
@@ -174,5 +178,52 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
     getGrid: function()
     {
         return this.data.grid;
+    },
+
+    /**
+     * @private
+     * Calls to its masterdetail to select a record.
+     * @param {Ext.selection.Model} sm
+     * @param {Ext.data.Model[]} records
+     * @param {Object} eOpts
+     */
+    onSelectionChange: function(sm, records, eOpts)
+    {
+        if (records.length > 1) {
+            this.getMasterDetail().selectRecords(records);
+            return;
+        }
+        this.getMasterDetail().selectRecord(records[0]);
+    },
+
+    /**
+     * @private
+     * Calls to its masterdetail to add a record.
+     * @param {Ext.button.Button} button
+     */
+    onAdd: function(button)
+    {
+        this.getMasterDetail().addRecord();
+    },
+
+    /**
+     * @private
+     * Calls to its masterdetail to delete a record.
+     * @param {Ext.button.Button} button
+     */
+    onDelete: function(button)
+    {
+        var records = this.getGrid().getSelectionModel().getSelection();
+        this.getMasterDetail().deleteRecords(records);
+    },
+
+    /**
+     * @private
+     * Calls to its masterdetail refresh the store.
+     * @param {Ext.button.Button} button
+     */
+    onRefresh: function(button)
+    {
+        this.getMasterDetail().refresh();
     }
 });
