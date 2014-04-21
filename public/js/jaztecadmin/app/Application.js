@@ -15,7 +15,9 @@ Ext.define('JaztecAdmin.app.Application', {
     requires: [
         'JaztecAdmin.view.Viewport',
         'JaztecAdmin.view.main.Panel',
-        'JaztecAdmin.view.base.editor.MasterDetail'
+        'JaztecAdmin.view.base.editor.MasterDetail',
+        // Services
+        'JaztecAdmin.service.Store'
     ],
     
     data: {},
@@ -27,7 +29,7 @@ Ext.define('JaztecAdmin.app.Application', {
     init: function()
     {
         var me = this;
-        
+
         // Quicktips when needed.
         if (me.useQuickTips) {
             Ext.QuickTips.init();
@@ -55,7 +57,10 @@ Ext.define('JaztecAdmin.app.Application', {
         
         // Load controllers for the first time.
         me.loadControllers();
-        
+
+        // Load the application services.
+        me.loadServices();
+
         // Unload handler.
         Ext.EventManager.on(window, 'beforeunload', me.onUnload, me);
     },
@@ -94,6 +99,15 @@ Ext.define('JaztecAdmin.app.Application', {
             }
         );
     },
+
+    /**
+     * Function will load client-side services.
+     */
+    loadServices: function()
+    {
+        Ext.create('JaztecAdmin.service.Store');
+    },
+
     /**
      * Test if a controller with module capabilities already exists 
      * inside the application.
@@ -102,5 +116,13 @@ Ext.define('JaztecAdmin.app.Application', {
     moduleExists: function(module)
     {
         return (this.modules.indexOf(module) !== -1);
+    },
+
+    /**
+     * On unload window
+     */
+    onUnload: function()
+    {
+        /* @todo On unload window */
     }
 });
