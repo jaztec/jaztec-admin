@@ -1,5 +1,6 @@
 /*globals Ext, JaztecAdmin*/
 /**
+ * @class JaztecAdmin.controller.Main
  * Simple main controller to house a home section.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */

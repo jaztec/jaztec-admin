@@ -1,5 +1,6 @@
 /*globals Ext, JaztecAdmin*/
 /**
+ * @class JaztecAdmin.view.base.editor.MasterDetail
  * Master detail main editor. This object will be responsible for the handling
  * of the seperate master and detail forms.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
@@ -10,9 +11,15 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     alias: 'widget.masterdetail',
 
     layout: {
-        type: 'border'
+        type: 'border',
+        align: 'stretch'
     },
 
+    /**
+     * @cfg {Object} data
+     * Holds the internal data.
+     * @private
+     */
     data: {},
 
     requires: [
@@ -31,19 +38,15 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
             masterDetail: me
         }, me.masterCfg || {});
         var detailCfg = Ext.merge({
-            masterDetail: me
-        });
+            masterDetail: me,
+            region: 'center'
+        },  me.detailCfg || {});
         me.data = Ext.apply({
             childComponents: {
                 master: Ext.create('JaztecAdmin.view.base.editor.Master', masterCfg),
                 detail: Ext.create('JaztecAdmin.view.base.editor.Detail', detailCfg)
             }
         }, me.data);
-
-        // Test if a store is passed by configuration.
-        if (!me.data.store === undefined) {
-            this.setStore(me.data.store);
-        }
 
         me.items = [
             me.data.childComponents.master,
@@ -91,7 +94,27 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     {
         this.data.store = store;
         // Load the master panel.
-        // Load the detail panel.
+        this.getMaster().getGrid().setStore(this.getStore());
         return this;
+    },
+
+    /**
+     * Returns the master part of this component.
+     * 
+     * @returns {JaztecAdmin.view.base.editor.Master}
+     */
+    getMaster: function()
+    {
+        return this.data.childComponents.master;
+    },
+
+    /**
+     * Returns the detail part of this component.
+     * 
+     * @returns {JaztecAdmin.view.base.editor.Detail}
+     */
+    getDetail: function()
+    {
+        return this.data.childComponents.detail;
     }
 });

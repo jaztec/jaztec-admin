@@ -1,5 +1,6 @@
 /*globals Ext, App, JaztecAdmin*/
 /**
+ * @class JaztecAdmin.app.Application
  * Application class for the JaztecAdmin Framework.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */
@@ -19,8 +20,19 @@ Ext.define('JaztecAdmin.app.Application', {
         // Services
         'JaztecAdmin.service.Store'
     ],
-    
+
+    /**
+     * @cfg {Object} data
+     * Holds the internal data.
+     * @private
+     */
     data: {},
+
+    /**
+     * @property {Object} viewport
+     * Holds the internal viewport.
+     * @private
+     */
     viewport: {},
 
     /**

@@ -1,7 +1,9 @@
+/*globals Ext, JaztecAdmin*/
 /**
  * @class JaztecAdmin.service.Store
  * 
  * Class which can generate store configuration.
+ * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */
 Ext.define('JaztecAdmin.service.Store', {
     statics: {
@@ -10,6 +12,7 @@ Ext.define('JaztecAdmin.service.Store', {
          * @param   {String} url        URL to be appended
          * @param   {Object} [config]   Additional configuration
          * @returns {Object} proxyCfg   Proxy configuration
+         * @static
          */
         createCrudProxy: function(url, config)
         {
@@ -27,7 +30,7 @@ Ext.define('JaztecAdmin.service.Store', {
                     create: '/' + url + '/create',
                     read: '/' + url + '/read',
                     update: '/' + url + '/update',
-                    destroy: '/' + url + '/destroy',
+                    destroy: '/' + url + '/destroy'
                 },
                 reader: {
                     type: 'json',

@@ -1,5 +1,6 @@
 /*globals Ext, JaztecAdmin*/
 /**
+ * @class JaztecAdmin.view.base.toolbar.Toolbar
  * A toolbar object with some shortcut functions.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */

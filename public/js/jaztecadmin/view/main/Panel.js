@@ -1,5 +1,6 @@
 /*globals Ext, JaztecAdmin*/
 /**
+ * @class JaztecAdmin.view.main.Panel
  * Source object for the main panel.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */

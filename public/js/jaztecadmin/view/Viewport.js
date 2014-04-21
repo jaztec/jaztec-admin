@@ -1,5 +1,6 @@
 /*globals Ext, JaztecAdmin*/
 /**
+ * @class JaztecAdmin.view.Viewport
  * Viewport for the main application.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */

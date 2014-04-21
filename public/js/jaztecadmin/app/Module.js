@@ -1,10 +1,16 @@
 /*globals Ext, JaztecAdmin*/
 /**
+ * @class JaztecAdmin.app.Module
  * A base class with functionality for a controller of the module type.
  * @author Jasper van Herpt <jasper.v.herpt@gmail.com>
  */
 Ext.define('JaztecAdmin.app.Module', {
     extend: 'Ext.app.Controller',
+    /**
+     * @cfg {Object} data
+     * Holds the internal data.
+     * @private
+     */
     data: {
         // Global properties to be shared with all modules.
         appData: {}
@@ -95,7 +101,6 @@ Ext.define('JaztecAdmin.app.Module', {
 
     /**
      * Get the views for this controller.
-     * @returns {undefined}
      */
     loadViews: function()
     {
@@ -110,7 +115,6 @@ Ext.define('JaztecAdmin.app.Module', {
 
     /**
      * Get the stores for this controller.
-     * @returns {undefined}
      */
     loadStores: function()
     {
@@ -137,7 +141,6 @@ Ext.define('JaztecAdmin.app.Module', {
     /**
      * This function adds the visual components to the application
      * after all dependencies have been loaded.
-     * @returns {undefined}
      */
     registerControls: function() {},
 
