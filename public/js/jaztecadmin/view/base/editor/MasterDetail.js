@@ -22,6 +22,12 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      */
     data: {},
 
+    /**
+     * @cfg {Object} modelDefaults
+     * Default data which should be applied to any newly created record in the
+     * master-detail.
+     */
+
     requires: [
         'JaztecAdmin.view.base.editor.Master',
         'JaztecAdmin.view.base.editor.Detail'
@@ -29,15 +35,17 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
 
     initComponent: function()
     {
-        var me = this;
+        var me = this,
+            masterCfg,
+            detailCfg;
 
         // Add the master and detail panels.
-        var masterCfg = Ext.merge({
+        masterCfg = Ext.merge({
             showSearchField: true, 
             region: 'west',
             masterDetail: me
         }, me.masterCfg || {});
-        var detailCfg = Ext.merge({
+        detailCfg = Ext.merge({
             masterDetail: me,
             region: 'center'
         },  me.detailCfg || {});
@@ -47,14 +55,28 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
                 detail: Ext.create('JaztecAdmin.view.base.editor.Detail', detailCfg)
             }
         }, me.data);
-
         me.items = [
             me.data.childComponents.master,
             me.data.childComponents.detail
         ];
+
         // Add and link some basic events.
         me.addEvents(
+            /**
+             * @event masterdetail-opened
+             * Fires when the master-detailform is shown.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   panel
+             * @param {Object}                                      eOpts
+             */
             'masterdetail-opened',
+            /**
+             * @event masterdetail-closed
+             * Fires when the master-detailform is closed or hidden.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   panel
+             * @param {Object}                                      eOpts
+             */
             'masterdetail-closed'
         );
         me.on({
@@ -68,6 +90,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
 
     /**
      * Return the internal module entity.
+     * 
      * @returns {JaztecAdmin.app.Module}
      */
     getModule: function()
@@ -77,6 +100,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
 
     /**
      * Returns the store of this master detail screen.
+     * 
      * @returns {Ext.data.Store}
      */
     getStore: function()
@@ -87,6 +111,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     /**
      * Sets the internal store variable. Loads it into the coupled master and
      * detail panels.
+     * 
      * @param {Ext.data.Store} store
      * @returns {JaztecAdmin.view.base.editor.MasterDetail}
      */
@@ -120,50 +145,66 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
 
     /**
      * Select a record in the master detail.
+     * 
      * @param {Ext.data.Model} record
      * @todo Implement
      */
     selectRecord: function(record)
     {
-        
+        // Load the detail panel with the selected record.
+        debugger;
     },
 
     /**
      * Selects multiple records in the master detail.
+     * 
      * @param {Ext.data.Model[]} records
-     * @todo Implement
      */
     selectRecords: function(records)
     {
-        
+        // We only want the first record to actually be selected.
+        this.selectRecord(records[0]);
     },
 
     /**
-     * Adds a new record to the master detail
+     * Adds a new record to the master detail and directly loads it into the 
+     * detail form.
+     * 
      * @returns {Ext.data.Model}
-     * @todo Implement
      */
     addRecord: function()
     {
-        
+        var store = this.getStore(),
+            model = new store.model();
+
+        // Apply any configured details to a newly created record and add it to the store.
+        model = Ext.apply(
+            model.data,
+            this.modelDefaults || {}
+        );
+        store.add(model);
+
+        // Select the newly created record, this will also load it into the detail form.
+        this.getMaster().getGrid().getSelectionModel().select(model);
+
+        return model;
     },
 
     /**
      * Deletes a set of records.
+     * 
      * @param {Ext.data.Model[]} records
-     * @todo Implement
      */
     deleteRecords: function(records)
     {
-        
+        this.getStore().remove(records);
     },
 
     /**
      * Refresh the main store. 
-     * @todo Implement
      */
     refresh: function()
     {
-        
+        this.getStore().load();
     }
 });

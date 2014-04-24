@@ -109,6 +109,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
 
     /**
      * Returns the toolpanel with optional add and delete buttons and a searchfield.
+     * Depending on the master detail configuration.
      * 
      * @returns {Ext.panel.Panel}
      * @private
@@ -184,8 +185,8 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
      * @private
      * Calls to its masterdetail to select a record.
      * @param {Ext.selection.Model} sm
-     * @param {Ext.data.Model[]} records
-     * @param {Object} eOpts
+     * @param {Ext.data.Model[]}    records
+     * @param {Object}              eOpts
      */
     onSelectionChange: function(sm, records, eOpts)
     {
@@ -199,10 +200,15 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
     /**
      * @private
      * Calls to its masterdetail to add a record.
-     * @param {Ext.button.Button} button
+     * @param {Ext.button.Button}   button
+     * @param {Object\Number}       eOpts
      */
-    onAdd: function(button)
+    onAdd: function(button, eOpts)
     {
+        // At creation time some integers are released in eOpts, exclude them.
+        if (!eOpts || !isNaN(eOpts)) {
+            return;
+        }
         this.getMasterDetail().addRecord();
     },
 
