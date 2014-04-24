@@ -150,6 +150,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     selectRecord: function(record)
     {
         // Load the detail panel with the selected record.
+        this.getDetail().setRecord(record);
         debugger;
     },
 
