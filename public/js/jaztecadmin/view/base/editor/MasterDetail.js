@@ -67,7 +67,6 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
              * Fires when the master-detailform is shown.
              * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
              * @param {JaztecAdmin.view.base.editor.MasterDetail}   panel
-             * @param {Object}                                      eOpts
              */
             'masterdetail-opened',
             /**
@@ -75,7 +74,6 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
              * Fires when the master-detailform is closed or hidden.
              * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
              * @param {JaztecAdmin.view.base.editor.MasterDetail}   panel
-             * @param {Object}                                      eOpts
              */
             'masterdetail-closed'
         );
