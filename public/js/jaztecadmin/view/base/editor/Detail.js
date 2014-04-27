@@ -15,21 +15,44 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
      */
     data: null,
 
+    /**
+     * @cfg {Array} fields
+     * The fields which are to be displayed in the detail form.
+     */
+
+    /**
+     * @cfg {Object} formCfg
+     * Extra configuration for the detail form..
+     */
+
     initComponent: function()
     {
         var me = this,
             items = [],
-            form;
+            form,
+            buttons;
 
-        form = this.createForm();
+        // Set the layout.
+        this.layout = {
+            type: 'vbox',
+            align: 'stretch'
+        };
+
+        // Create the form.
+        form = this.createForm(me);
         items.push(form);
+
+        // Create the button panel.
+        buttons = this.createButtons();
+        items.push(buttons);
 
         me.items = items;
         me.callParent(arguments);
 
         // Set the internal data.
         this.data = Ext.apply({
-            form: form
+            form: form,
+            buttonPanel: buttons
         }, this.data || {});
     },
 
@@ -42,7 +65,6 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
     setRecord: function(record)
     {
         this.getForm().loadRecord(record);
-
         return record;
     },
 
@@ -66,12 +88,98 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
     createForm: function(options)
     {
         var calcOptions = options || {},
-            optionsFields = calcOptions.fields || [],
-            formCfg = {},
+            formCfg = calcOptions.formCfg || {},
             form;
+
+        // Apply some defaults to the form configuration.
+        formCfg = Ext.applyIf({
+            border: false,
+            region: 'center',
+            bodyPadding: 10,
+            layout: {
+                type: 'vbox',
+                align: 'stretch'
+            }
+        }, formCfg);
+
+        // Add the fields to the configuration.
+        formCfg = Ext.apply({
+            items: calcOptions.fields || []
+        }, formCfg);
 
         form = Ext.create('Ext.form.Panel', formCfg);
 
         return form;
+    },
+
+    /**
+     * Create the button panel of the detail form.
+     * 
+     * @param {Object} [config]
+     * @returns {JaztecAdmin.view.base.toolbar.Toolbar}
+     * @private
+     */
+    createButtons: function(config)
+    {
+        var calcConfig = config || {},
+            toolbar,
+            items = [];
+
+        // Prepare the configuration.
+        calcConfig = Ext.apply({
+            border: false,
+            bodyPadding: 10
+        }, calcConfig);
+
+        // Create the toolbar.
+        toolbar = Ext.create('JaztecAdmin.view.base.toolbar.Toolbar', {})
+
+        // Add a save and cancel button.
+        toolbar.addToolItem(1, {
+            xtype: 'button',
+            text: 'Save',
+            iconCls: 'icon-save-small',
+            handler: Ext.bind(this.onSaveRecord, this)
+        });
+        toolbar.addToolItem(2, {
+            xtype: 'button',
+            text: 'Cancel',
+            handler: Ext.bind(this.onCancelRecord, this)
+        });
+        return toolbar;
+    },
+
+    /**
+     * Calls to its owning masterdetail to save changes to the record.
+     * @param {Ext.button.Button} button
+     * @private
+     */
+    onSaveRecord: function(button)
+    {
+        this.getMasterDetail().saveRecord(this.getForm().getRecord());
+        // Return the button to unpressed.
+        button.toggle(false, false);
+    },
+
+    /**
+     * Calls to its owning masterdetail to cancel the current changes.
+     * @param {Ext.button.Button} button
+     * @private
+     */
+    onCancelRecord: function(button)
+    {
+        this.getMasterDetail().cancelRecord(this.getForm().getRecord());
+        // Return the button to unpressed.
+        button.toggle(false, false);
+    },
+
+    /**
+     * Get the parent master detail that houses this master panel.
+     * @returns {JaztecAdmin.view.base.editor.MasterDetail}
+     * @private
+     */
+    getMasterDetail: function()
+    {
+        return this.masterDetail;
     }
 });

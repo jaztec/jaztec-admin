@@ -70,6 +70,11 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
             selectionchange: Ext.bind(this.onSelectionChange, this)
         });
 
+        // Apply some defaults.
+        Ext.applyIf({
+            border: '0 0 0 3'
+        }, this);
+
         me.items = items;
         me.callParent(arguments);
 
@@ -165,6 +170,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
     /**
      * Get the parent master detail that houses this master panel.
      * @returns {JaztecAdmin.view.base.editor.MasterDetail}
+     * @private
      */
     getMasterDetail: function()
     {

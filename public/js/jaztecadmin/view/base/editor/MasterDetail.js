@@ -66,21 +66,97 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
              * @event masterdetail-opened
              * Fires when the master-detailform is shown.
              * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
-             * @param {JaztecAdmin.view.base.editor.MasterDetail}   panel
              */
             'masterdetail-opened',
             /**
              * @event masterdetail-closed
              * Fires when the master-detailform is closed or hidden.
              * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
-             * @param {JaztecAdmin.view.base.editor.MasterDetail}   panel
              */
-            'masterdetail-closed'
+            'masterdetail-closed',
+            /**
+             * @event before-selectrecord
+             * Fires before record(s) are selected.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model\Ext.data.Model[]}             record(s)
+             */
+            'before-selectrecord',
+            /**
+             * @event selectrecord
+             * 
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model\Ext.data.Model[]}             record(s)
+             */
+            'selectrecord',
+            /**
+             * @event before-addrecord
+             * Fires before a record is added.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model}                              record
+             */
+            'before-addrecord',
+            /**
+             * @event addrecord
+             * Fires after a record is added.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model}                              record
+             */
+            'addrecord',
+            /**
+             * @event before-deleterecords
+             * Fires before a record is removed.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model[]}                            records[]
+             */
+            'before-deleterecords',
+            /**
+             * @event deleterecords
+             * Fires when records are removed.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model[]}                            records[]
+             */
+            'deleterecords',
+            /**
+             * @event before-saverecord
+             * Fires before a record is saved.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model}                              record
+             */
+            'before-saverecord',
+            /**
+             * @event saverecord
+             * Fires after a record is saved.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model}                              record
+             */
+            'saverecord',
+            /**
+             * @event before-cancelrecord
+             * Fires before changes to a record are calcelled.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model}                              record
+             */
+            'before-cancelrecord',
+            /**
+             * @event cancelrecord
+             * Fires after changes to a record have been cancelled.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {Ext.data.Model}                              record
+             */
+            'cancelrecord',
+            /**
+             * @event refresh
+             * Fires when the masterdetail is refreshed.
+             * @param {JaztecAdmin.view.base.editor.MasterDetail}   masterDetail
+             * @param {JaztecAdmin.view.base.editor.Master}         master
+             * @param {JaztecAdmin.view.base.editor.Detail}         detail
+             */
+            'refresh'
         );
         me.on({
-            show: function(panel, eOpts) {me.fireEvent('masterdetail-opened', me, panel, eOpts); },
-            close: function(panel, eOpts) {me.fireEvent('masterdetail-closed', me, panel, eOpts); },
-            hide: function(panel, eOpts) {me.fireEvent('masterdetail-closed', me, panel, eOpts); }
+            show: function(panel, eOpts) {me.fireEvent('masterdetail-opened', me, eOpts); },
+            close: function(panel, eOpts) {me.fireEvent('masterdetail-closed', me, eOpts); },
+            hide: function(panel, eOpts) {me.fireEvent('masterdetail-closed', me, eOpts); }
         });
 
         me.callParent(arguments);
@@ -144,14 +220,19 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     /**
      * Select a record in the master detail.
      * 
-     * @param {Ext.data.Model} record
-     * @todo Implement
+     * @param {Ext.data.Model}  record
+     * @param {Boolean}         [suppressEvents]
      */
-    selectRecord: function(record)
+    selectRecord: function(record, suppressEvents)
     {
+        if (!suppressEvents) {
+            this.fireEvent('before-selectrecord', this, record);
+        }
         // Load the detail panel with the selected record.
         this.getDetail().setRecord(record);
-        debugger;
+        if (!suppressEvents) {
+            this.fireEvent('selectrecord', this, record);
+        }
     },
 
     /**
@@ -161,8 +242,10 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      */
     selectRecords: function(records)
     {
+        this.fireEvent('before-selectrecord', this, records);
         // We only want the first record to actually be selected.
-        this.selectRecord(records[0]);
+        this.selectRecord(records[0], true);
+        this.fireEvent('selectrecord', this, records);
     },
 
     /**
@@ -174,17 +257,22 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     addRecord: function()
     {
         var store = this.getStore(),
-            model = new store.model();
+            model = new store.model(),
+            record;
 
         // Apply any configured details to a newly created record and add it to the store.
         model = Ext.apply(
             model.data,
             this.modelDefaults || {}
         );
-        store.add(model);
+
+        // Handle events and add the record to the store.
+        this.fireEvent('before-addrecord', this, model);
+        record = store.add(model);
+        this.fireEvent('addrecord', this, record);
 
         // Select the newly created record, this will also load it into the detail form.
-        this.getMaster().getGrid().getSelectionModel().select(model);
+        this.getMaster().getGrid().getSelectionModel().select(record);
 
         return model;
     },
@@ -196,7 +284,9 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      */
     deleteRecords: function(records)
     {
+        this.fireEvent('before-deleterecords', this, records);
         this.getStore().remove(records);
+        this.fireEvent('deleterecords', this, records);
     },
 
     /**
@@ -204,6 +294,31 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      */
     refresh: function()
     {
+        this.fireEvent('refresh', this, this.getMaster(), this.getDetail());
         this.getStore().load();
+    },
+
+    /**
+     * Cancels a record.
+     * 
+     * @param {Ext.data.Model} record
+     * @todo Implement
+     */
+    cancelRecord: function(record)
+    {
+        this.fireEvent('before-cancelrecord', this, record);
+        this.fireEvent('cancelrecord', this, record);
+    },
+
+    /**
+     * Saves a record.
+     * 
+     * @param {Ext.data.Model} record
+     * @todo Implement
+     */
+    saveRecord: function(record)
+    {
+        this.fireEvent('before-saverecord', this, record);
+        this.fireEvent('saverecord', this, record);
     }
 });
