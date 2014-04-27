@@ -135,7 +135,7 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
             toolbar;
 
         // Prepare the configuration.
-        calcConfig = Ext.apply({
+        calcConfig = Ext.applyIf({
             dock: 'bottom'
         }, calcConfig);
 
@@ -164,8 +164,15 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
      */
     onSaveRecord: function(button)
     {
-        var record = this.getForm().getRecord();
-        this.getForm().getForm().updateRecord(record);
+        var record = this.getForm().getRecord(),
+            form = this.getForm();
+
+        // Test if the form is filled correctly.
+        if (!form.isValid()) {
+            return;
+        }
+
+        form.getForm().updateRecord(record);
         this.getMasterDetail().saveRecord(record);
         // Return the button to unpressed.
         button.toggle(false, false);
