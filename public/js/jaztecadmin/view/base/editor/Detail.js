@@ -9,7 +9,7 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
 
     /**
      * @property {Object} data
-     * Holds the internal data for this instance of a Master component.
+     * Holds the internal data for this instance of a Detail component.
      * @private
      */
     data: null,
@@ -25,7 +25,7 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
      */
 
      /**
-      * @cfg buttonCfg
+      * @cfg {Object} buttonCfg
       * Configuration for the toolbar in the bottom of the detail form.
       */
 
@@ -124,7 +124,8 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
     /**
      * Create the button panel of the detail form.
      * 
-     * @param {Object} [config]
+     * @param {Object} [config]     Additional parameters for the button toolbar.
+     * @param {String} config.dock  The docked position of the toolbar.
      * @returns {JaztecAdmin.view.base.toolbar.Toolbar}
      * @private
      */
