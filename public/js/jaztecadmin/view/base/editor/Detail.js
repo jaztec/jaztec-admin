@@ -143,6 +143,7 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
             region: 'center',
             bodyPadding: 10,
             trackResetOnLoad: false,
+            autoScroll: true,
             layout: {
                 type: 'vbox',
                 align: 'stretch'

@@ -10,11 +10,6 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     border: false,
     alias: 'widget.masterdetail',
 
-    layout: {
-        type: 'border',
-        align: 'stretch'
-    },
-
     /**
      * @property {Object} data
      * Holds the internal data.
@@ -28,6 +23,19 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      * master-detail.
      */
 
+     /**
+      * @cfg {String} masterDetailLayout
+      * Set the layout the master-datail should follow. The following configurations
+      * will work:
+      * 
+      * * overview-left (Default)
+      * * overview-right
+      * * overview-center
+      * * overview-top
+      * * overview-bottom
+      */
+    masterDetailLayout: 'overview-left',
+
     requires: [
         'JaztecAdmin.view.base.editor.Master',
         'JaztecAdmin.view.base.editor.Detail'
@@ -36,22 +44,39 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     initComponent: function()
     {
         var me = this,
+            masterRegion = this.getMasterRegion(this.masterDetailLayout || ''),
+            detailRegion,
             masterCfg,
             detailCfg;
+
+        // Define the layout and/or regions of components.
+        detailRegion = (masterRegion === 'center') ? 'south' : 'center';
+        if (detailRegion === 'center') {
+            this.layout = {
+                type: 'border',
+                align: 'stretch'
+            };
+        } else if (detailRegion === 'south') {
+            this.layout = {
+                type: 'vbox',
+                align: 'stretch'
+            };
+        }
 
         // Add the master and detail panels.
         masterCfg = Ext.merge({
             showSearchField: true, 
-            region: 'west',
+            region: masterRegion,
             collapsible: true,
             title: 'Overview',
             masterDetail: me
         }, me.masterCfg || {});
         detailCfg = Ext.merge({
             masterDetail: me,
-            region: 'center',
+            region: detailRegion,
             disabled: true,
-            title: 'Detailed information'
+            title: 'Detailed information',
+            flex: 1,
         },  me.detailCfg || {});
         me.data = Ext.apply({
             childComponents: {
@@ -373,5 +398,38 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
                 me.fireEvent('saverecord', me, record);
             }
         });
+    },
+
+    /**
+     * Resolves the configuration into a region for the master element.
+     * 
+     * @param {String} configuration
+     * @returns {String}
+     * @private
+     */
+    getMasterRegion: function(configuration)
+    {
+        var region = '';
+        // Define the region
+        switch (configuration) {
+            case 'overview-left':
+                region = 'west';
+                break;
+            case 'overview-right':
+                region = 'east';
+                break;
+            case 'overview-center':
+                region = 'center';
+                break;
+            case 'overview-top':
+                region = 'north';
+                break;
+            case 'overview-bottom':
+                region = 'south';
+                break;
+            default:
+                region = 'west';
+        }
+        return region;
     }
 });
