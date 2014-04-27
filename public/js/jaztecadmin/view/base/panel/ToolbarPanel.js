@@ -40,6 +40,10 @@ Ext.define('JaztecAdmin.view.base.panel.ToolbarPanel', {
         me.callParent(arguments);
 
         me.loadCards(me.cards || []);
+
+        // Set the first button in the panel down because the first item is 
+        // shown by default.
+        toolbar.items.get(0).toggle(true, false);
     },
     /**
      * Get the toolbar on this panel.
