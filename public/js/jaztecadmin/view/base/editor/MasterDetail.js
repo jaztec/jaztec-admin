@@ -241,6 +241,10 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      */
     selectRecord: function(record, suppressEvents)
     {
+        // Only proceed with a valid resource.
+        if (!record) {
+            return;
+        }
         if (!suppressEvents) {
             this.fireEvent('before-selectrecord', this, record);
         }
@@ -301,9 +305,20 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      */
     deleteRecords: function(records)
     {
+        var me = this;
         this.fireEvent('before-deleterecords', this, records);
         this.getStore().remove(records);
-        this.fireEvent('deleterecords', this, records);
+        this.getDetail().resetForm();
+        this.getDetail().setDisabled(true);
+        this.getStore().sync({
+            /**
+             * @param {Ext.data.Batch}  batch
+             * @param {Object}          options
+             */
+            callback: function(batch, options) {
+                me.fireEvent('deleterecords', me, records);
+            }
+        });
     },
 
     /**
@@ -326,7 +341,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
         if (record.dirty) {
             record.reject();
         }
-        this.getDetail().getForm().getForm().reset(true);
+        this.getDetail().resetForm();
         if (record.getId() === 0) {
             this.getStore().remove(record);
             this.getDetail().setDisabled(true);
@@ -343,18 +358,19 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      */
     saveRecord: function(record)
     {
+        var me = this;
         if (!record.dirty) {
             return;
         }
         this.fireEvent('before-saverecord', this, record);
         this.getStore().sync({
             /**
-             * @param {Ext.data.Batch} batch
-             * @param {Object} options
+             * @param {Ext.data.Batch}  batch
+             * @param {Object}          options
              */
             callback: function(batch, options)
             {
-                this.fireEvent('saverecord', this, record);
+                me.fireEvent('saverecord', me, record);
             }
         });
     }

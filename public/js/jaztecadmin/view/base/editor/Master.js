@@ -138,7 +138,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
                 iconCls: 'icon-add-small',
                 handler: Ext.bind(this.onAdd, this)
             });
-        };
+        }
         // Add a delete button
         if (this.showDeleteButton === true) {
             panel.add({
@@ -146,7 +146,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
                 iconCls: 'icon-bin-small',
                 handler: Ext.bind(this.onDelete, this)
             });
-        };
+        }
         // Add a refresh button
         if (this.showRefreshButton === true) {
             panel.add({
@@ -154,7 +154,7 @@ Ext.define('JaztecAdmin.view.base.editor.Master', {
                 iconCls: 'icon-refresh-small',
                 handler: Ext.bind(this.onRefresh, this)
             });
-        };
+        }
         // Add a searchfield
         if (this.showSearchField === true) {
             panel.add(Ext.create('Ext.ux.form.SearchField', {

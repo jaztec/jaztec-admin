@@ -45,7 +45,7 @@ Ext.define('Ext.ux.form.SearchField', {
                     });
 
                     return found;
-                }
+                };
 
                 me.store.clearFilter();
                 me.store.filterBy(filterFn, filterFn);
