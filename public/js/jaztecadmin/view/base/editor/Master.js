@@ -5,7 +5,6 @@
  */
 Ext.define('JaztecAdmin.view.base.editor.Master', {
     extend: 'Ext.panel.Panel',
-    border: false,
     layout: {
         type: 'vbox',
         align: 'stretch',

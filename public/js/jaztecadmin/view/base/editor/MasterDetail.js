@@ -43,11 +43,15 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
         masterCfg = Ext.merge({
             showSearchField: true, 
             region: 'west',
+            collapsible: true,
+            title: 'Overview',
             masterDetail: me
         }, me.masterCfg || {});
         detailCfg = Ext.merge({
             masterDetail: me,
-            region: 'center'
+            region: 'center',
+            disabled: true,
+            title: 'Detailed information'
         },  me.detailCfg || {});
         me.data = Ext.apply({
             childComponents: {
@@ -218,6 +222,18 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     },
 
     /**
+     * Disables the detail part of the master-detail.
+     * 
+     * @param {Boolean} disabled
+     * @returns {Boolean}
+     */
+    disableDetail: function(disabled)
+    {
+        this.getDetail().setDisabled(disabled);
+        return disabled;
+    },
+
+    /**
      * Select a record in the master detail.
      * 
      * @param {Ext.data.Model}  record
@@ -229,6 +245,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
             this.fireEvent('before-selectrecord', this, record);
         }
         // Load the detail panel with the selected record.
+        this.getDetail().setDisabled(false);
         this.getDetail().setRecord(record);
         if (!suppressEvents) {
             this.fireEvent('selectrecord', this, record);
@@ -302,11 +319,20 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      * Cancels a record.
      * 
      * @param {Ext.data.Model} record
-     * @todo Implement
      */
     cancelRecord: function(record)
     {
         this.fireEvent('before-cancelrecord', this, record);
+        if (record.dirty) {
+            record.reject();
+        }
+        this.getDetail().getForm().getForm().reset(true);
+        if (record.getId() === 0) {
+            this.getStore().remove(record);
+            this.getDetail().setDisabled(true);
+        } else if (record.getId() !== 0) {
+            this.getDetail().setRecord(record);
+        }
         this.fireEvent('cancelrecord', this, record);
     },
 
@@ -314,11 +340,22 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
      * Saves a record.
      * 
      * @param {Ext.data.Model} record
-     * @todo Implement
      */
     saveRecord: function(record)
     {
+        if (!record.dirty) {
+            return;
+        }
         this.fireEvent('before-saverecord', this, record);
-        this.fireEvent('saverecord', this, record);
+        this.getStore().sync({
+            /**
+             * @param {Ext.data.Batch} batch
+             * @param {Object} options
+             */
+            callback: function(batch, options)
+            {
+                this.fireEvent('saverecord', this, record);
+            }
+        });
     }
 });

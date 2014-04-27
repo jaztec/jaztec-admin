@@ -6,7 +6,6 @@
 Ext.define('JaztecAdmin.view.base.editor.Detail', {
     extend: 'Ext.panel.Panel',
     region: 'center',
-    border: false,
 
     /**
      * @cfg {Object} data
@@ -25,10 +24,16 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
      * Extra configuration for the detail form..
      */
 
+     /**
+      * @cfg buttonCfg
+      * Configuration for the toolbar in the bottom of the detail form.
+      */
+
     initComponent: function()
     {
         var me = this,
             items = [],
+            dockedItems = [],
             form,
             buttons;
 
@@ -43,10 +48,11 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
         items.push(form);
 
         // Create the button panel.
-        buttons = this.createButtons();
-        items.push(buttons);
+        buttons = this.createButtons(this.buttonCfg);
+        dockedItems.push(buttons);
 
         me.items = items;
+        me.dockedItems = dockedItems;
         me.callParent(arguments);
 
         // Set the internal data.
@@ -64,6 +70,9 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
      */
     setRecord: function(record)
     {
+        if (!record) {
+            return;
+        }
         this.getForm().loadRecord(record);
         return record;
     },
@@ -122,17 +131,15 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
     createButtons: function(config)
     {
         var calcConfig = config || {},
-            toolbar,
-            items = [];
+            toolbar;
 
         // Prepare the configuration.
         calcConfig = Ext.apply({
-            border: false,
-            bodyPadding: 10
+            dock: 'bottom'
         }, calcConfig);
 
         // Create the toolbar.
-        toolbar = Ext.create('JaztecAdmin.view.base.toolbar.Toolbar', {})
+        toolbar = Ext.create('JaztecAdmin.view.base.toolbar.Toolbar', calcConfig);
 
         // Add a save and cancel button.
         toolbar.addToolItem(1, {
@@ -156,7 +163,9 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
      */
     onSaveRecord: function(button)
     {
-        this.getMasterDetail().saveRecord(this.getForm().getRecord());
+        var record = this.getForm().getRecord();
+        this.getForm().getForm().updateRecord(record);
+        this.getMasterDetail().saveRecord(record);
         // Return the button to unpressed.
         button.toggle(false, false);
     },
@@ -168,7 +177,9 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
      */
     onCancelRecord: function(button)
     {
-        this.getMasterDetail().cancelRecord(this.getForm().getRecord());
+        var record = this.getForm().getRecord();
+        this.getForm().getForm().updateRecord(record);
+        this.getMasterDetail().cancelRecord(record);
         // Return the button to unpressed.
         button.toggle(false, false);
     },
