@@ -8,7 +8,7 @@ Ext.define('JaztecAdmin.view.base.editor.Detail', {
     region: 'center',
 
     /**
-     * @cfg {Object} data
+     * @property {Object} data
      * Holds the internal data for this instance of a Master component.
      * @private
      */

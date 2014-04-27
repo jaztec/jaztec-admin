@@ -16,7 +16,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
     },
 
     /**
-     * @cfg {Object} data
+     * @property {Object} data
      * Holds the internal data.
      * @private
      */

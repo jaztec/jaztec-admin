@@ -12,7 +12,7 @@ Ext.define('JaztecAdmin.view.base.toolbar.Toolbar', {
 
         me.addEvents(
             /**
-             * @cfg button-click
+             * @event button-click
              * Fires when a button in the toolbar is clicked.
              * @param {JaztecAdmin.view.base.toolbar.Toolbar}   this
              * @param {Ext.button.Button}                       button
