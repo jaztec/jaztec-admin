@@ -12,7 +12,7 @@ return array(
             'ext' => 'ext-all-debug.js',
         ),
         'css'          => array(
-            'ext' => 'resources/css/ext-all-gray.css',
+            'ext' => 'resources/css/ext-all-neptune.css',
         ),
         'direct'       => array(
             'modules' => array(

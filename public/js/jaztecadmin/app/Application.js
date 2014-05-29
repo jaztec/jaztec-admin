@@ -72,9 +72,6 @@ Ext.define('JaztecAdmin.app.Application', {
 
         // Load the application services.
         me.loadServices();
-
-        // Unload handler.
-        Ext.EventManager.on(window, 'beforeunload', me.onUnload, me);
     },
 
     /**
