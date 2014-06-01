@@ -25,7 +25,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
 
      /**
       * @cfg {String} masterDetailLayout
-      * Set the layout the master-datail should follow. The following configurations
+      * Set the layout the master-detail should follow. The following configurations
       * will work:
       * 
       * * overview-left (Default)
