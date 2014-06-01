@@ -8,5 +8,10 @@ Ext.define('JaztecAdmin.view.base.window.Window', {
     extend: 'Ext.window.Window',
 
     closeAction: 'destroy',
-    modal: true
+    modal: true,
+
+    initComponent: function()
+    {
+        this.callParent(arguments);
+    }
 });

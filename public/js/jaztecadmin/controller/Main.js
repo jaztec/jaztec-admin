@@ -7,13 +7,43 @@
 Ext.define('JaztecAdmin.controller.Main', {
     extend: 'JaztecAdmin.app.Module',
     stores: [],
-    views: [],
-    refs: [],
+    views: [
+        'user.UserSettings'
+    ],
+    refs: [
+        {ref: 'mainPanel', selector: 'jaztec-main-panel'},
+        {
+            ref: 'userSettingsWindow',
+            selector: 'userSettings',
+            autoCreate: true,
+            xtype: 'userSettings'
+        }
+    ],
 
     init: function()
     {
         var me = this;
+
+        this.control({
+            'jaztec-main-panel': {
+                'user-settings': Ext.bind(me.showUserSettings, me)
+            }
+        });
+
         me.callParent(arguments);
+    },
+
+    /**
+     * Shows the window holding the user settings.
+     * @param {JaztecAdmin.view.main.Panel} panel
+     * @returns {undefined}
+     * @private
+     */
+    showUserSettings: function(panel)
+    {
+        var me = this,
+            window = me.getUserSettingsWindow();
+        window.show();
     },
 
     /**
