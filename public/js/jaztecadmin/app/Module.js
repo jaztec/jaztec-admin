@@ -272,8 +272,8 @@ Ext.define('JaztecAdmin.app.Module', {
                 me.toggleToolItem(button);
             }
         }, cfg);
-        // Test the index, the last 2 items are always the splitter and logout button.
-        while (toolbar.items.length - 2 < index) {
+        // Test the index, the last 3 items are always the splitter, user and logout buttons.
+        while (toolbar.items.length - 3 < index) {
             index--;
         }
         toolbar.insert(index, cfg);

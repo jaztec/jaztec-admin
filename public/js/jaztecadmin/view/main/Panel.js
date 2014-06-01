@@ -13,6 +13,15 @@ Ext.define('JaztecAdmin.view.main.Panel', {
     {
         var me = this;
 
+        this.addEvents(
+            /**
+             * @event user-settings Fires when the user settings button is clicked.
+             * 
+             * @param {JaztecAdmin.view.main.Panel} this
+             */
+            'user-settings'
+        );
+
         var tbar = new Ext.toolbar.Toolbar({
             alias: 'widget.main-toolbar',
             cls: 'main-toolbar',
@@ -24,8 +33,21 @@ Ext.define('JaztecAdmin.view.main.Panel', {
                 iconAlign: 'top'
             },
             items: [
-                // Only logout for starters.
+                // Only logout and changing user settings for starters.
                 '->',
+                {
+                    text: 'User',
+                    iconCls: 'icon-user-medium',
+                    action: 'user-settings',
+                    /**
+                     * View user settings for the currently logged in user.
+                     * @param {Ext.button.Button} button
+                     */
+                    handler: function(button) {
+                        button.toggle(false);
+                        me.fireEvent('user-settings', me);
+                    }
+                },
                 {
                     text: 'Logout',
                     iconCls: 'icon-logout-medium',
@@ -66,5 +88,4 @@ Ext.define('JaztecAdmin.view.main.Panel', {
         var me = this;
         return me.down('toolbar');
     }
-
 });
