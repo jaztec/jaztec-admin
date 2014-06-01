@@ -76,7 +76,7 @@ Ext.define('JaztecAdmin.view.base.editor.MasterDetail', {
             region: detailRegion,
             disabled: true,
             title: 'Detailed information',
-            flex: 1,
+            flex: 1
         },  me.detailCfg || {});
         me.data = Ext.apply({
             childComponents: {

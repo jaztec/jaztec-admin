@@ -129,7 +129,6 @@ Ext.define('JaztecAdmin.view.user.UserSettings', {
 
     /**
      * Fires the cancel event and resets the form.
-     * @todo Reset the form
      * @returns {JaztecAdmin.view.user.UserSettings} this
      * @private
      */
