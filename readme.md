@@ -9,6 +9,15 @@ interface through the ExtJS library's.
 This repository is a work in progress. Currently no extensive unit testing or error handling
 is done. Please use with care.
 
+This package currently does not contain any installation script. You do however have
+to install the acl package. See below or the jaztec-acl package documentation.
+
+```sh
+./php public/index.php acl database clean-install --email=[your_email] [--verbose|-v]
+```
+
+To include in your project
+
 ```sh
 ./composer.phar require jaztec/jaztec-admin
 ```
