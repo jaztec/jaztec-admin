@@ -7,12 +7,12 @@ return array(
      * KJ Sencha config.
      */
     'kjsencha'        => array(
-        'library_path' => 'http://cdn.sencha.io/ext-4.2.0-gpl/',
+        'library_path' => '/js/extjs4.2.1',
         'js'           => array(
-            'ext' => 'ext-all-debug.js',
+            'ext' => 'js/ext-all-debug.js',
         ),
         'css'          => array(
-            'ext' => 'resources/css/ext-all-neptune.css',
+            'ext' => 'css/ext-theme-neptune-all.css',
         ),
         'direct'       => array(
             'modules' => array(

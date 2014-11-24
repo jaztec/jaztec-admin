@@ -78,15 +78,6 @@ Ext.define('JaztecAdmin.controller.Main', {
                 ]
             }
         );
-        me.addToolItem(0, {
-            text: 'Home',
-            iconCls: 'icon-home-medium',
-            initComponent: function()
-            {
-                this.toggle(true);
-                this.callParent(arguments);
-            }
-        });
         me.setRegistered(true);
     }
 });

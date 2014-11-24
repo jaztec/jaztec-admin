@@ -276,6 +276,7 @@ Ext.define('JaztecAdmin.app.Module', {
         while (toolbar.items.length - 3 < index) {
             index--;
         }
+        debugger;
         toolbar.insert(index, cfg);
         return true;
     },
